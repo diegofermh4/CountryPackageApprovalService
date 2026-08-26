@@ -1,0 +1,183 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CountryPackageApprovalService.Domain</name>
+    </assembly>
+    <members>
+        <member name="T:CountryPackageApprovalService.Domain.ApprovalStep">
+            <summary>
+            One step in a package's roadmap instance. All state-transition rules live here as behavior (not in a
+            service that pokes at public setters) - see docs/ARCHITECTURE.md §2.3 for the state diagram this implements.
+            Two checks are deliberately self-contained here because they only need data this aggregate already holds
+            (status, IsLocked, AssignedApproverId): the state-guard on every transition, and "only the named approver
+            may decide". The broader "does this user currently hold Reviewer clearance for this country + org level"
+            check needs a cross-aggregate lookup (<see cref="M:CountryPackageApprovalService.Domain.User.HasClearance(System.String,CountryPackageApprovalService.Domain.UserRole,CountryPackageApprovalService.Domain.OrgLevel)"/>) and so happens one layer up, in
+            ApprovalWorkflowService, before these methods are ever called.
+            </summary>
+        </member>
+        <member name="P:CountryPackageApprovalService.Domain.ApprovalStep.AssignedApproverId">
+            <summary>Decision steps: the named Reviewer. Information steps: the named recipient. Set at submission time.</summary>
+        </member>
+        <member name="P:CountryPackageApprovalService.Domain.ApprovalStep.IsLocked">
+            <summary>True once this step is Completed - its document snapshot is then read-only (see <see cref="T:CountryPackageApprovalService.Domain.DocumentVersion"/>).</summary>
+        </member>
+        <member name="P:CountryPackageApprovalService.Domain.ApprovalStep.RowVersion">
+            <summary>EF Core row-version concurrency token (auto-generated/incremented by the InMemory provider on SaveChanges;
+            maps 1:1 onto a SQL Server `rowversion` column in the Azure target). See docs/ARCHITECTURE.md §3.3.</summary>
+        </member>
+        <member name="P:CountryPackageApprovalService.Domain.ApprovalStep.RequiresDocument">
+            <summary>Only Decision steps carry a reviewable document; Information steps just need a named recipient.</summary>
+        </member>
+        <member name="P:CountryPackageApprovalService.Domain.ApprovalStep.CanAcceptDocument">
+            <summary>Cheap pre-check mirroring the guard inside <see cref="M:CountryPackageApprovalService.Domain.ApprovalStep.AttachDocument(System.Guid,System.String,System.String,System.String,System.Int64,System.String)"/>, so callers (and the
+            API's response DTOs) can tell upload is currently allowed without needing to attempt it.</summary>
+        </member>
+        <member name="M:CountryPackageApprovalService.Domain.ApprovalStep.Submit(System.Guid,System.Guid)">
+            <summary>Editor submits: for a Decision step this opens it for review; for an Information step,
+            submission itself completes and locks the step (no reviewer action - per the brief).</summary>
+        </member>
+        <member name="T:CountryPackageApprovalService.Domain.AuditLogEntry">
+            <summary>
+            One immutable record of a state-changing action, always written in the same DB transaction as the
+            state change it describes (see ApprovalWorkflowService). <see cref="P:CountryPackageApprovalService.Domain.AuditLogEntry.StepId"/> is null for package-level
+            actions (e.g. roadmap creation).
+            </summary>
+        </member>
+        <member name="T:CountryPackageApprovalService.Domain.Country">
+            <summary>A country code the roadmap/RBAC model scopes users and packages to. Fictional data only.</summary>
+        </member>
+        <member name="T:CountryPackageApprovalService.Domain.CountryPackage">
+            <summary>
+            Aggregate root. A Country Package instantiates a <see cref="T:CountryPackageApprovalService.Domain.RoadmapTemplate"/> into an ordered list of
+            <see cref="T:CountryPackageApprovalService.Domain.ApprovalStep"/>s and owns their progression. <see cref="P:CountryPackageApprovalService.Domain.CountryPackage.Status"/> is deliberately derived, not
+            stored, so it can never drift from the steps themselves (docs/ARCHITECTURE.md §2.3).
+            </summary>
+        </member>
+        <member name="P:CountryPackageApprovalService.Domain.CountryPackage.RowVersion">
+            <summary>EF Core row-version concurrency token - see <see cref="P:CountryPackageApprovalService.Domain.ApprovalStep.RowVersion"/> for the rationale.</summary>
+        </member>
+        <member name="P:CountryPackageApprovalService.Domain.CountryPackage.DomainEvents">
+            <summary>Aggregates this package's own events with every step's - see <see cref="T:CountryPackageApprovalService.Domain.Events.IDomainEvent"/>.</summary>
+        </member>
+        <member name="M:CountryPackageApprovalService.Domain.CountryPackage.AdvanceIfCurrentStepCompleted">
+            <summary>Advances the package's pointer once the current step completes. Idempotent-safe to call more than
+            once at the tail: it never advances past the last step.</summary>
+        </member>
+        <member name="P:CountryPackageApprovalService.Domain.CountryPackage.Status">
+            <summary>Derived, never stored (see docs/ARCHITECTURE.md §2.3): InProgress while any step is active,
+            ReturnedForRevision when the current step is in that state, Completed once every step is Completed.</summary>
+        </member>
+        <member name="T:CountryPackageApprovalService.Domain.DocumentVersion">
+            <summary>
+            A single upload attached to one <see cref="T:CountryPackageApprovalService.Domain.ApprovalStep"/>. Versions are scoped per step (never shared
+            across steps), so "the document may be revised in subsequent obtain-decision steps, but documents attached
+            to previously completed steps must remain unchanged" falls out naturally: once the owning step locks,
+            every DocumentVersion under it becomes read-only (enforced by <see cref="M:CountryPackageApprovalService.Domain.ApprovalStep.AttachDocument(System.Guid,System.String,System.String,System.String,System.Int64,System.String)"/> refusing
+            new versions on a locked step; reinforced by a storage-level immutability policy in the Azure target - see
+            docs/ARCHITECTURE.md §6.4).
+            </summary>
+        </member>
+        <member name="T:CountryPackageApprovalService.Domain.Events.IDomainEvent">
+            <summary>
+            Marker for events raised by aggregates during a use case. The Application layer reads
+            <c>CountryPackage.DomainEvents</c> after a successful operation and hands them to <c>IOutboxWriter</c>,
+            which persists them in the same DB transaction as the state change (transactional outbox - see
+            docs/ARCHITECTURE.md §3.3). A background dispatcher then "publishes" them (Service Bus in the
+            Azure target architecture; logged in this exercise).
+            </summary>
+        </member>
+        <member name="T:CountryPackageApprovalService.Domain.UserRole">
+            <summary>The two roles from the brief. A user holds exactly one role, scoped per country (see <see cref="T:CountryPackageApprovalService.Domain.UserCountryRole"/>).</summary>
+        </member>
+        <member name="T:CountryPackageApprovalService.Domain.OrgLevel">
+            <summary>
+            Organizational level. On a <see cref="T:CountryPackageApprovalService.Domain.UserCountryRole"/>, <see cref="F:CountryPackageApprovalService.Domain.OrgLevel.Both"/> means the user is cleared at both
+            levels for that country. On an <see cref="T:CountryPackageApprovalService.Domain.ApprovalStep"/> / <see cref="T:CountryPackageApprovalService.Domain.RoadmapStepTemplate"/> the level is always
+            <see cref="F:CountryPackageApprovalService.Domain.OrgLevel.Country"/> or <see cref="F:CountryPackageApprovalService.Domain.OrgLevel.Regional"/> - a step is never "Both".
+            </summary>
+        </member>
+        <member name="T:CountryPackageApprovalService.Domain.StepType">
+            <summary>The two step shapes described in the brief - every step in the roadmap is one of these.</summary>
+        </member>
+        <member name="F:CountryPackageApprovalService.Domain.StepType.Decision">
+            <summary>Editor submits a document + names an approver; the Reviewer approves or returns it.</summary>
+        </member>
+        <member name="F:CountryPackageApprovalService.Domain.StepType.Information">
+            <summary>Editor names a recipient and submits; submission itself completes the step. No reviewer action.</summary>
+        </member>
+        <member name="T:CountryPackageApprovalService.Domain.StepStatus">
+            <summary>Lifecycle of a single <see cref="T:CountryPackageApprovalService.Domain.ApprovalStep"/>. See docs/ARCHITECTURE.md §2.3 for the full state diagram.</summary>
+        </member>
+        <member name="T:CountryPackageApprovalService.Domain.StepDecision">
+            <summary>The two actions a Country Reviewer can take on a pending Decision step.</summary>
+        </member>
+        <member name="T:CountryPackageApprovalService.Domain.Exceptions.DomainException">
+            <summary>Base type for every business-rule violation raised by the Domain or Application layers.
+            The API layer's exception-handling middleware maps each subtype to a specific HTTP status / ProblemDetails.</summary>
+        </member>
+        <member name="T:CountryPackageApprovalService.Domain.Exceptions.NotFoundException">
+            <summary>The requested aggregate/entity does not exist. Maps to 404.</summary>
+        </member>
+        <member name="T:CountryPackageApprovalService.Domain.Exceptions.InvalidStepStateException">
+            <summary>An action was attempted while the step/package was not in a state that allows it
+            (e.g. submitting a step that is already PendingApproval, or approving a step that isn't).
+            Also used for missing-precondition input errors (e.g. no document attached). Maps to 409 Conflict.</summary>
+        </member>
+        <member name="T:CountryPackageApprovalService.Domain.Exceptions.StepLockedException">
+            <summary>A write was attempted against a step whose document snapshot is locked (already approved). Maps to 409 Conflict.</summary>
+        </member>
+        <member name="T:CountryPackageApprovalService.Domain.Exceptions.UnauthorizedStepActionException">
+            <summary>The caller is authenticated but is not entitled to perform this specific action -
+            e.g. not the step's named approver, or lacks current role/country/org-level clearance. Maps to 403 Forbidden.
+            This is a defense-in-depth check inside Domain/Application; the same rule is also enforced earlier,
+            before any business logic runs, by the API layer's resource-based authorization handlers (see docs/ARCHITECTURE.md §4).</summary>
+        </member>
+        <member name="T:CountryPackageApprovalService.Domain.Exceptions.ConcurrencyConflictException">
+            <summary>Two callers raced to mutate the same aggregate; the caller's view was stale. Maps to 409 Conflict.
+            Raised by Infrastructure after catching the EF Core concurrency exception, so Domain/Application never
+            take a dependency on the persistence provider's exception types.</summary>
+        </member>
+        <member name="T:CountryPackageApprovalService.Domain.Exceptions.BusinessRuleValidationException">
+            <summary>A request failed a business-rule validation that isn't a simple data-annotation check
+            (e.g. "no active roadmap template is configured"). Maps to 422 Unprocessable Entity.</summary>
+        </member>
+        <member name="T:CountryPackageApprovalService.Domain.RoadmapTemplate">
+            <summary>
+            The pre-defined approval process, modeled as data rather than hardcoded steps (docs/ARCHITECTURE.md §2.2)
+            so a revision or a second package type is a data change, not a redeploy.
+            </summary>
+        </member>
+        <member name="M:CountryPackageApprovalService.Domain.RoadmapTemplate.CreateDefault">
+            <summary>
+            The four fixed steps from the brief. This is the one active template used throughout the take-home;
+            the template/instance split exists so a future variant is data, not code (see docs/ARCHITECTURE.md §2.2).
+            </summary>
+        </member>
+        <member name="T:CountryPackageApprovalService.Domain.User">
+            <summary>
+            A platform user. In the take-home, authentication is a development header that resolves directly to a
+            seeded User's <see cref="P:CountryPackageApprovalService.Domain.User.Id"/>; in the Azure target architecture, <see cref="P:CountryPackageApprovalService.Domain.User.ExternalId"/> holds the
+            Microsoft Entra ID object id (oid claim) and authentication is a real OIDC token (see docs/ARCHITECTURE.md §6.3).
+            Either way, Entra ID (or the dev header) only ever establishes identity - authorization is always
+            re-read from <see cref="T:CountryPackageApprovalService.Domain.UserCountryRole"/> below.
+            </summary>
+        </member>
+        <member name="M:CountryPackageApprovalService.Domain.User.HasClearance(System.String,CountryPackageApprovalService.Domain.UserRole,CountryPackageApprovalService.Domain.OrgLevel)">
+            <summary>True if this user currently holds <paramref name="role"/> for <paramref name="countryCode"/>
+            at (or covering) <paramref name="orgLevel"/>. The core RBAC check - see docs/ARCHITECTURE.md §4.1.</summary>
+        </member>
+        <member name="M:CountryPackageApprovalService.Domain.User.HasAnyClearance(System.String,CountryPackageApprovalService.Domain.UserRole)">
+            <summary>True if this user holds <paramref name="role"/> for <paramref name="countryCode"/> at any org
+            level. Used where the action itself is not org-level-scoped (e.g. an Editor submitting a step) - see
+            <see cref="M:CountryPackageApprovalService.Domain.User.HasClearance(System.String,CountryPackageApprovalService.Domain.UserRole,CountryPackageApprovalService.Domain.OrgLevel)"/> for the org-level-scoped check used for Reviewer decisions.</summary>
+        </member>
+        <member name="T:CountryPackageApprovalService.Domain.UserCountryRole">
+            <summary>
+            The authorization store (docs/ARCHITECTURE.md §4.1): one row per (user, country, role), optionally
+            scoped further to a single org level. Role is never global - it is always granted for a country, and
+            clearance to review at Country level does not imply clearance at Regional level (and vice versa) unless
+            <see cref="P:CountryPackageApprovalService.Domain.UserCountryRole.OrgLevel"/> is <see cref="F:CountryPackageApprovalService.Domain.OrgLevel.Both"/>.
+            </summary>
+        </member>
+    </members>
+</doc>

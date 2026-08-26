@@ -1,0 +1,14 @@
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\CountryPackageApprovalService.Domain\bin\Debug\net10.0\CountryPackageApprovalService.Domain.deps.json
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\CountryPackageApprovalService.Domain\bin\Debug\net10.0\CountryPackageApprovalService.Domain.dll
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\CountryPackageApprovalService.Domain\bin\Debug\net10.0\CountryPackageApprovalService.Domain.pdb
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\CountryPackageApprovalService.Domain\bin\Debug\net10.0\CountryPackageApprovalService.Domain.xml
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\CountryPackageApprovalService.Domain\obj\Debug\net10.0\CountryPackageApprovalService.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\CountryPackageApprovalService.Domain\obj\Debug\net10.0\CountryPackageApprovalService.Domain.AssemblyInfoInputs.cache
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\CountryPackageApprovalService.Domain\obj\Debug\net10.0\CountryPackageApprovalService.Domain.AssemblyInfo.cs
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\CountryPackageApprovalService.Domain\obj\Debug\net10.0\CountryPackageApprovalService.Domain.csproj.CoreCompileInputs.cache
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\CountryPackageApprovalService.Domain\obj\Debug\net10.0\CountryPackageApprovalService.Domain.sourcelink.json
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\CountryPackageApprovalService.Domain\obj\Debug\net10.0\CountryPackageApprovalService.Domain.dll
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\CountryPackageApprovalService.Domain\obj\Debug\net10.0\refint\CountryPackageApprovalService.Domain.dll
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\CountryPackageApprovalService.Domain\obj\Debug\net10.0\CountryPackageApprovalService.Domain.xml
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\CountryPackageApprovalService.Domain\obj\Debug\net10.0\CountryPackageApprovalService.Domain.pdb
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\CountryPackageApprovalService.Domain\obj\Debug\net10.0\ref\CountryPackageApprovalService.Domain.dll

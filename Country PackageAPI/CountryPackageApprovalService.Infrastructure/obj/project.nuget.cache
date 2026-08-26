@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "dgSpecHash": "S3vlM8NCoB4=",
+  "success": true,
+  "projectFilePath": "C:\\Workspaces\\WB\\CountryPackageApprovalService\\Country PackageAPI\\CountryPackageApprovalService.Infrastructure\\CountryPackageApprovalService.Infrastructure.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\DIEGOHI\\.nuget\\packages\\microsoft.entityframeworkcore\\10.0.0\\microsoft.entityframeworkcore.10.0.0.nupkg.sha512",
+    "C:\\Users\\DIEGOHI\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\10.0.0\\microsoft.entityframeworkcore.abstractions.10.0.0.nupkg.sha512",
+    "C:\\Users\\DIEGOHI\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\10.0.0\\microsoft.entityframeworkcore.analyzers.10.0.0.nupkg.sha512",
+    "C:\\Users\\DIEGOHI\\.nuget\\packages\\microsoft.entityframeworkcore.inmemory\\10.0.0\\microsoft.entityframeworkcore.inmemory.10.0.0.nupkg.sha512",
+    "C:\\Users\\DIEGOHI\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\10.0.0\\microsoft.extensions.caching.abstractions.10.0.0.nupkg.sha512",
+    "C:\\Users\\DIEGOHI\\.nuget\\packages\\microsoft.extensions.caching.memory\\10.0.0\\microsoft.extensions.caching.memory.10.0.0.nupkg.sha512",
+    "C:\\Users\\DIEGOHI\\.nuget\\packages\\microsoft.extensions.configuration\\10.0.11\\microsoft.extensions.configuration.10.0.11.nupkg.sha512",
+    "C:\\Users\\DIEGOHI\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\10.0.11\\microsoft.extensions.configuration.abstractions.10.0.11.nupkg.sha512",
+    "C:\\Users\\DIEGOHI\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\10.0.0\\microsoft.extensions.dependencyinjection.10.0.0.nupkg.sha512",
+    "C:\\Users\\DIEGOHI\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\10.0.11\\microsoft.extensions.dependencyinjection.abstractions.10.0.11.nupkg.sha512",
+    "C:\\Users\\DIEGOHI\\.nuget\\packages\\microsoft.extensions.diagnostics.abstractions\\10.0.11\\microsoft.extensions.diagnostics.abstractions.10.0.11.nupkg.sha512",
+    "C:\\Users\\DIEGOHI\\.nuget\\packages\\microsoft.extensions.fileproviders.abstractions\\10.0.11\\microsoft.extensions.fileproviders.abstractions.10.0.11.nupkg.sha512",
+    "C:\\Users\\DIEGOHI\\.nuget\\packages\\microsoft.extensions.hosting.abstractions\\10.0.11\\microsoft.extensions.hosting.abstractions.10.0.11.nupkg.sha512",
+    "C:\\Users\\DIEGOHI\\.nuget\\packages\\microsoft.extensions.logging\\10.0.0\\microsoft.extensions.logging.10.0.0.nupkg.sha512",
+    "C:\\Users\\DIEGOHI\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\10.0.11\\microsoft.extensions.logging.abstractions.10.0.11.nupkg.sha512",
+    "C:\\Users\\DIEGOHI\\.nuget\\packages\\microsoft.extensions.options\\10.0.11\\microsoft.extensions.options.10.0.11.nupkg.sha512",
+    "C:\\Users\\DIEGOHI\\.nuget\\packages\\microsoft.extensions.primitives\\10.0.11\\microsoft.extensions.primitives.10.0.11.nupkg.sha512"
+  ],
+  "logs": []
+}

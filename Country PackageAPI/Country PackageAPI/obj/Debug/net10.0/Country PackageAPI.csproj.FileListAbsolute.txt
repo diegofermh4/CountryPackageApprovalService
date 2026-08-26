@@ -1,0 +1,50 @@
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\bin\Debug\net10.0\appsettings.Development.json
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\bin\Debug\net10.0\appsettings.json
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\bin\Debug\net10.0\Country PackageAPI.staticwebassets.endpoints.json
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\bin\Debug\net10.0\Country PackageAPI.exe
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\bin\Debug\net10.0\Country PackageAPI.deps.json
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\bin\Debug\net10.0\Country PackageAPI.runtimeconfig.json
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\bin\Debug\net10.0\Country PackageAPI.dll
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\bin\Debug\net10.0\Country PackageAPI.pdb
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\bin\Debug\net10.0\Country PackageAPI.xml
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.dll
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.InMemory.dll
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\bin\Debug\net10.0\Microsoft.OpenApi.dll
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\bin\Debug\net10.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\bin\Debug\net10.0\CountryPackageApprovalService.Application.dll
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\bin\Debug\net10.0\CountryPackageApprovalService.Domain.dll
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\bin\Debug\net10.0\CountryPackageApprovalService.Infrastructure.dll
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\bin\Debug\net10.0\CountryPackageApprovalService.Application.pdb
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\bin\Debug\net10.0\CountryPackageApprovalService.Application.xml
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\bin\Debug\net10.0\CountryPackageApprovalService.Infrastructure.pdb
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\bin\Debug\net10.0\CountryPackageApprovalService.Domain.pdb
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\bin\Debug\net10.0\CountryPackageApprovalService.Domain.xml
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\obj\Debug\net10.0\Country PackageAPI.csproj.AssemblyReference.cache
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\obj\Debug\net10.0\rpswa.dswa.cache.json
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\obj\Debug\net10.0\Country PackageAPI.GeneratedMSBuildEditorConfig.editorconfig
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\obj\Debug\net10.0\Country PackageAPI.AssemblyInfoInputs.cache
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\obj\Debug\net10.0\Country PackageAPI.AssemblyInfo.cs
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\obj\Debug\net10.0\Country PackageAPI.csproj.CoreCompileInputs.cache
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\obj\Debug\net10.0\Country PackageAPI.MvcApplicationPartsAssemblyInfo.cs
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\obj\Debug\net10.0\Country PackageAPI.MvcApplicationPartsAssemblyInfo.cache
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\obj\Debug\net10.0\Country PackageAPI.sourcelink.json
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\obj\Debug\net10.0\rjimswa.dswa.cache.json
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\obj\Debug\net10.0\rjsmrazor.dswa.cache.json
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\obj\Debug\net10.0\rjsmcshtml.dswa.cache.json
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\obj\Debug\net10.0\scopedcss\bundle\Country PackageAPI.styles.css
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\obj\Debug\net10.0\staticwebassets.build.json
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\obj\Debug\net10.0\staticwebassets.build.json.cache
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\obj\Debug\net10.0\staticwebassets.development.json
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\obj\Debug\net10.0\staticwebassets.build.endpoints.json
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\obj\Debug\net10.0\swae.build.ex.cache
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\obj\Debug\net10.0\Country .9E8FA92B.Up2Date
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\obj\Debug\net10.0\Country PackageAPI.dll
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\obj\Debug\net10.0\refint\Country PackageAPI.dll
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\obj\Debug\net10.0\Country PackageAPI.xml
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\obj\Debug\net10.0\Country PackageAPI.pdb
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\obj\Debug\net10.0\Country PackageAPI.genruntimeconfig.cache
+C:\Workspaces\WB\CountryPackageApprovalService\Country PackageAPI\Country PackageAPI\obj\Debug\net10.0\ref\Country PackageAPI.dll

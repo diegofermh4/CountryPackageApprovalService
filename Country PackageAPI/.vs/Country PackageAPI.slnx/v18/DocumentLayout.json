@@ -1,0 +1,201 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Workspaces\\WB\\CountryPackageApprovalService\\Country PackageAPI\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F253FFEE-2E0B-E0AB-70CA-B22B6465BE5B}|CountryPackageApprovalService.Tests\\CountryPackageApprovalService.Tests.csproj|c:\\workspaces\\wb\\countrypackageapprovalservice\\country packageapi\\countrypackageapprovalservice.tests\\integration\\integrationtestbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F253FFEE-2E0B-E0AB-70CA-B22B6465BE5B}|CountryPackageApprovalService.Tests\\CountryPackageApprovalService.Tests.csproj|solutionrelative:countrypackageapprovalservice.tests\\integration\\integrationtestbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0E71A7D5-3272-A2B1-BCA3-8C54CF98C7FB}|CountryPackageApprovalService.Infrastructure\\CountryPackageApprovalService.Infrastructure.csproj|c:\\workspaces\\wb\\countrypackageapprovalservice\\country packageapi\\countrypackageapprovalservice.infrastructure\\documentstore\\localdiskdocumentstore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0E71A7D5-3272-A2B1-BCA3-8C54CF98C7FB}|CountryPackageApprovalService.Infrastructure\\CountryPackageApprovalService.Infrastructure.csproj|solutionrelative:countrypackageapprovalservice.infrastructure\\documentstore\\localdiskdocumentstore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0E71A7D5-3272-A2B1-BCA3-8C54CF98C7FB}|CountryPackageApprovalService.Infrastructure\\CountryPackageApprovalService.Infrastructure.csproj|c:\\workspaces\\wb\\countrypackageapprovalservice\\country packageapi\\countrypackageapprovalservice.infrastructure\\outbox\\outboxdispatcherhostedservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0E71A7D5-3272-A2B1-BCA3-8C54CF98C7FB}|CountryPackageApprovalService.Infrastructure\\CountryPackageApprovalService.Infrastructure.csproj|solutionrelative:countrypackageapprovalservice.infrastructure\\outbox\\outboxdispatcherhostedservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0E71A7D5-3272-A2B1-BCA3-8C54CF98C7FB}|CountryPackageApprovalService.Infrastructure\\CountryPackageApprovalService.Infrastructure.csproj|c:\\workspaces\\wb\\countrypackageapprovalservice\\country packageapi\\countrypackageapprovalservice.infrastructure\\outbox\\outboxmessage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0E71A7D5-3272-A2B1-BCA3-8C54CF98C7FB}|CountryPackageApprovalService.Infrastructure\\CountryPackageApprovalService.Infrastructure.csproj|solutionrelative:countrypackageapprovalservice.infrastructure\\outbox\\outboxmessage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0E71A7D5-3272-A2B1-BCA3-8C54CF98C7FB}|CountryPackageApprovalService.Infrastructure\\CountryPackageApprovalService.Infrastructure.csproj|c:\\workspaces\\wb\\countrypackageapprovalservice\\country packageapi\\countrypackageapprovalservice.infrastructure\\dependencyinjection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0E71A7D5-3272-A2B1-BCA3-8C54CF98C7FB}|CountryPackageApprovalService.Infrastructure\\CountryPackageApprovalService.Infrastructure.csproj|solutionrelative:countrypackageapprovalservice.infrastructure\\dependencyinjection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{06EA0DB6-AF14-8A85-757B-8A40C4C546B5}|CountryPackageApprovalService.Application\\CountryPackageApprovalService.Application.csproj|c:\\workspaces\\wb\\countrypackageapprovalservice\\country packageapi\\countrypackageapprovalservice.application\\services\\approvalworkflowservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{06EA0DB6-AF14-8A85-757B-8A40C4C546B5}|CountryPackageApprovalService.Application\\CountryPackageApprovalService.Application.csproj|solutionrelative:countrypackageapprovalservice.application\\services\\approvalworkflowservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CD9CB9CD-AF26-2E25-AF4C-3704B13A89AE}|Country PackageAPI\\Country PackageAPI.csproj|c:\\workspaces\\wb\\countrypackageapprovalservice\\country packageapi\\country packageapi\\auth\\devheaderauthenticationhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CD9CB9CD-AF26-2E25-AF4C-3704B13A89AE}|Country PackageAPI\\Country PackageAPI.csproj|solutionrelative:country packageapi\\auth\\devheaderauthenticationhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CD9CB9CD-AF26-2E25-AF4C-3704B13A89AE}|Country PackageAPI\\Country PackageAPI.csproj|c:\\workspaces\\wb\\countrypackageapprovalservice\\country packageapi\\country packageapi\\controllers\\countrypackagescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CD9CB9CD-AF26-2E25-AF4C-3704B13A89AE}|Country PackageAPI\\Country PackageAPI.csproj|solutionrelative:country packageapi\\controllers\\countrypackagescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CD9CB9CD-AF26-2E25-AF4C-3704B13A89AE}|Country PackageAPI\\Country PackageAPI.csproj|c:\\workspaces\\wb\\countrypackageapprovalservice\\country packageapi\\country packageapi\\weatherforecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CD9CB9CD-AF26-2E25-AF4C-3704B13A89AE}|Country PackageAPI\\Country PackageAPI.csproj|solutionrelative:country packageapi\\weatherforecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CD9CB9CD-AF26-2E25-AF4C-3704B13A89AE}|Country PackageAPI\\Country PackageAPI.csproj|c:\\workspaces\\wb\\countrypackageapprovalservice\\country packageapi\\country packageapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CD9CB9CD-AF26-2E25-AF4C-3704B13A89AE}|Country PackageAPI\\Country PackageAPI.csproj|solutionrelative:country packageapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:2:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "IntegrationTestBase.cs",
+              "DocumentMoniker": "C:\\Workspaces\\WB\\CountryPackageApprovalService\\Country PackageAPI\\CountryPackageApprovalService.Tests\\Integration\\IntegrationTestBase.cs",
+              "RelativeDocumentMoniker": "CountryPackageApprovalService.Tests\\Integration\\IntegrationTestBase.cs",
+              "ToolTip": "C:\\Workspaces\\WB\\CountryPackageApprovalService\\Country PackageAPI\\CountryPackageApprovalService.Tests\\Integration\\IntegrationTestBase.cs",
+              "RelativeToolTip": "CountryPackageApprovalService.Tests\\Integration\\IntegrationTestBase.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-26T02:01:27.642Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "LocalDiskDocumentStore.cs",
+              "DocumentMoniker": "C:\\Workspaces\\WB\\CountryPackageApprovalService\\Country PackageAPI\\CountryPackageApprovalService.Infrastructure\\DocumentStore\\LocalDiskDocumentStore.cs",
+              "RelativeDocumentMoniker": "CountryPackageApprovalService.Infrastructure\\DocumentStore\\LocalDiskDocumentStore.cs",
+              "ToolTip": "C:\\Workspaces\\WB\\CountryPackageApprovalService\\Country PackageAPI\\CountryPackageApprovalService.Infrastructure\\DocumentStore\\LocalDiskDocumentStore.cs",
+              "RelativeToolTip": "CountryPackageApprovalService.Infrastructure\\DocumentStore\\LocalDiskDocumentStore.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-26T02:00:50.8Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "OutboxMessage.cs",
+              "DocumentMoniker": "C:\\Workspaces\\WB\\CountryPackageApprovalService\\Country PackageAPI\\CountryPackageApprovalService.Infrastructure\\Outbox\\OutboxMessage.cs",
+              "RelativeDocumentMoniker": "CountryPackageApprovalService.Infrastructure\\Outbox\\OutboxMessage.cs",
+              "ToolTip": "C:\\Workspaces\\WB\\CountryPackageApprovalService\\Country PackageAPI\\CountryPackageApprovalService.Infrastructure\\Outbox\\OutboxMessage.cs",
+              "RelativeToolTip": "CountryPackageApprovalService.Infrastructure\\Outbox\\OutboxMessage.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-26T02:00:36.099Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "OutboxDispatcherHostedService.cs",
+              "DocumentMoniker": "C:\\Workspaces\\WB\\CountryPackageApprovalService\\Country PackageAPI\\CountryPackageApprovalService.Infrastructure\\Outbox\\OutboxDispatcherHostedService.cs",
+              "RelativeDocumentMoniker": "CountryPackageApprovalService.Infrastructure\\Outbox\\OutboxDispatcherHostedService.cs",
+              "ToolTip": "C:\\Workspaces\\WB\\CountryPackageApprovalService\\Country PackageAPI\\CountryPackageApprovalService.Infrastructure\\Outbox\\OutboxDispatcherHostedService.cs",
+              "RelativeToolTip": "CountryPackageApprovalService.Infrastructure\\Outbox\\OutboxDispatcherHostedService.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAAAsAAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-26T02:00:13.446Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "DependencyInjection.cs",
+              "DocumentMoniker": "C:\\Workspaces\\WB\\CountryPackageApprovalService\\Country PackageAPI\\CountryPackageApprovalService.Infrastructure\\DependencyInjection.cs",
+              "RelativeDocumentMoniker": "CountryPackageApprovalService.Infrastructure\\DependencyInjection.cs",
+              "ToolTip": "C:\\Workspaces\\WB\\CountryPackageApprovalService\\Country PackageAPI\\CountryPackageApprovalService.Infrastructure\\DependencyInjection.cs",
+              "RelativeToolTip": "CountryPackageApprovalService.Infrastructure\\DependencyInjection.cs",
+              "ViewState": "AgIAACgAAAAAAAAAAAAQwC8AAAA/AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-26T01:57:15.752Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ApprovalWorkflowService.cs",
+              "DocumentMoniker": "C:\\Workspaces\\WB\\CountryPackageApprovalService\\Country PackageAPI\\CountryPackageApprovalService.Application\\Services\\ApprovalWorkflowService.cs",
+              "RelativeDocumentMoniker": "CountryPackageApprovalService.Application\\Services\\ApprovalWorkflowService.cs",
+              "ToolTip": "C:\\Workspaces\\WB\\CountryPackageApprovalService\\Country PackageAPI\\CountryPackageApprovalService.Application\\Services\\ApprovalWorkflowService.cs",
+              "RelativeToolTip": "CountryPackageApprovalService.Application\\Services\\ApprovalWorkflowService.cs",
+              "ViewState": "AgIAAFoAAAAAAAAAAAAowAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-26T01:56:28.402Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "DevHeaderAuthenticationHandler.cs",
+              "DocumentMoniker": "C:\\Workspaces\\WB\\CountryPackageApprovalService\\Country PackageAPI\\Country PackageAPI\\Auth\\DevHeaderAuthenticationHandler.cs",
+              "RelativeDocumentMoniker": "Country PackageAPI\\Auth\\DevHeaderAuthenticationHandler.cs",
+              "ToolTip": "C:\\Workspaces\\WB\\CountryPackageApprovalService\\Country PackageAPI\\Country PackageAPI\\Auth\\DevHeaderAuthenticationHandler.cs",
+              "RelativeToolTip": "Country PackageAPI\\Auth\\DevHeaderAuthenticationHandler.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-26T01:55:27.635Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "CountryPackagesController.cs",
+              "DocumentMoniker": "C:\\Workspaces\\WB\\CountryPackageApprovalService\\Country PackageAPI\\Country PackageAPI\\Controllers\\CountryPackagesController.cs",
+              "RelativeDocumentMoniker": "Country PackageAPI\\Controllers\\CountryPackagesController.cs",
+              "ToolTip": "C:\\Workspaces\\WB\\CountryPackageApprovalService\\Country PackageAPI\\Country PackageAPI\\Controllers\\CountryPackagesController.cs",
+              "RelativeToolTip": "Country PackageAPI\\Controllers\\CountryPackagesController.cs",
+              "ViewState": "AgIAACUAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-26T01:54:48.677Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "WeatherForecast.cs",
+              "DocumentMoniker": "C:\\Workspaces\\WB\\CountryPackageApprovalService\\Country PackageAPI\\Country PackageAPI\\WeatherForecast.cs",
+              "RelativeDocumentMoniker": "Country PackageAPI\\WeatherForecast.cs",
+              "ToolTip": "C:\\Workspaces\\WB\\CountryPackageApprovalService\\Country PackageAPI\\Country PackageAPI\\WeatherForecast.cs",
+              "RelativeToolTip": "Country PackageAPI\\WeatherForecast.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-24T19:21:40.276Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Workspaces\\WB\\CountryPackageApprovalService\\Country PackageAPI\\Country PackageAPI\\Program.cs",
+              "RelativeDocumentMoniker": "Country PackageAPI\\Program.cs",
+              "ToolTip": "C:\\Workspaces\\WB\\CountryPackageApprovalService\\Country PackageAPI\\Country PackageAPI\\Program.cs",
+              "RelativeToolTip": "Country PackageAPI\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-24T19:21:36.897Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

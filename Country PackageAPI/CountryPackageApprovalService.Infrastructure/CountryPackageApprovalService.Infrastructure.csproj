@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- InMemory database provider, per the take-home's brief-approved substitute for a relational DB.
+         Swap for Microsoft.EntityFrameworkCore.SqlServer (Azure SQL) or .Npgsql (Postgres Flexible Server)
+         to move to the Azure target architecture in docs/ARCHITECTURE.md - only this project changes. -->
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="10.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.11" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.11" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CountryPackageApprovalService.Domain\CountryPackageApprovalService.Domain.csproj" />
+    <ProjectReference Include="..\CountryPackageApprovalService.Application\CountryPackageApprovalService.Application.csproj" />
+  </ItemGroup>
+
+</Project>

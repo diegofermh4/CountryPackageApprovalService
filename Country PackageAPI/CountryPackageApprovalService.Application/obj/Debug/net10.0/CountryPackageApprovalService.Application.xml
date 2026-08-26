@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CountryPackageApprovalService.Application</name>
+    </assembly>
+    <members>
+        <member name="T:CountryPackageApprovalService.Application.Dtos.CreateRoadmapRequest">
+            <summary>Country Editor: create a package's roadmap instance from the active template.</summary>
+        </member>
+        <member name="T:CountryPackageApprovalService.Application.Dtos.SubmitStepRequest">
+            <summary>Country Editor: submit a step. For a Decision step this names the approver; for an Information
+            step this names the distribution recipient - same field, per the brief's "consistent interface" per step.</summary>
+        </member>
+        <member name="T:CountryPackageApprovalService.Application.Dtos.StepDecisionRequest">
+            <summary>Country Reviewer: act on a pending Decision step.</summary>
+        </member>
+        <member name="T:CountryPackageApprovalService.Application.Interfaces.IDocumentStore">
+            <summary>Local disk in this exercise; Azure Blob Storage (versioned, immutability-policy-backed) in the
+            Azure target architecture - only the Infrastructure implementation changes (docs/ARCHITECTURE.md §6.4).</summary>
+        </member>
+        <member name="T:CountryPackageApprovalService.Application.Interfaces.IOutboxWriter">
+            <summary>
+            Writes a domain event to the transactional outbox in the *same* DB transaction as the state change that
+            raised it (see docs/ARCHITECTURE.md §3.3) - never publishes directly, so the event that tells the wider
+            platform "step completed" can't be lost or double-fired independently of the state change itself.
+            A background dispatcher (Infrastructure) later "publishes" queued messages - logged in this exercise,
+            Azure Service Bus in the Azure target architecture.
+            </summary>
+        </member>
+        <member name="T:CountryPackageApprovalService.Application.Interfaces.IIdempotencyStore">
+            <summary>
+            Backs the `Idempotency-Key` header on submit/decision endpoints (docs/ARCHITECTURE.md §3.3): a retried
+            request with the same key returns the original result instead of re-executing. In-process/in-memory in
+            this exercise; a distributed cache (e.g. Azure Cache for Redis) in a multi-instance production deployment.
+            </summary>
+        </member>
+        <member name="T:CountryPackageApprovalService.Application.Interfaces.ICountryPackageRepository">
+            <summary>
+            Persistence seams. Application depends only on these interfaces, never on EF Core - the concrete
+            implementations (backed by the InMemory provider in this exercise, Azure SQL in production) live in
+            Infrastructure. This is what keeps "swap the database" a one-project change (docs/ARCHITECTURE.md §9).
+            </summary>
+        </member>
+        <member name="M:CountryPackageApprovalService.Application.Interfaces.ICountryPackageRepository.GetByIdAsync(System.Guid,System.Threading.CancellationToken)">
+            <summary>Loads a package with its steps and each step's document versions. Null if not found.</summary>
+        </member>
+        <member name="M:CountryPackageApprovalService.Application.Interfaces.IUserRepository.GetByIdAsync(System.Guid,System.Threading.CancellationToken)">
+            <summary>Loads a user with their country/role grants. Null if not found.</summary>
+        </member>
+        <member name="M:CountryPackageApprovalService.Application.Interfaces.IUserRepository.GetAllAsync(System.Threading.CancellationToken)">
+            <summary>Every seeded user with their country/role grants. Backs the Api layer's test-users convenience
+            endpoint only (there is no legitimate production use case for "list every user") - see
+            Controllers/TestUsersController.cs.</summary>
+        </member>
+        <member name="T:CountryPackageApprovalService.Application.Interfaces.IUnitOfWork">
+            <summary>Commits the current unit of work in one transaction. Implementations translate the provider's
+            concurrency exception into <see cref="T:CountryPackageApprovalService.Domain.Exceptions.ConcurrencyConflictException"/> so callers above
+            Infrastructure never need to know which database is behind this interface.</summary>
+        </member>
+        <member name="T:CountryPackageApprovalService.Application.Services.DtoMapper">
+            <summary>Hand-written entity-to-DTO mapping. Deliberately not AutoMapper: the mapping surface here is
+            small and stable, and a couple of explicit static methods are easier to read, debug, and unit test than
+            a reflection-based profile - one fewer dependency for what it buys at this scale.</summary>
+        </member>
+        <member name="T:CountryPackageApprovalService.Application.Services.IApprovalWorkflowService">
+            <summary>
+            The use cases from the brief's "Expose core operations" section. Callers (the API layer) are expected to
+            have already run the coarse-grained, resource-based authorization check (Editor/Reviewer role + country
+            code against the loaded package - docs/ARCHITECTURE.md §4.2) before calling in here; this service adds the
+            checks that need a *second* aggregate loaded (does the named approver/decider currently hold clearance),
+            which a per-request authorization handler can't naturally express against someone other than the caller.
+            </summary>
+        </member>
+    </members>
+</doc>

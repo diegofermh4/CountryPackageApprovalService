@@ -1,0 +1,6 @@
+{
+  "Country PackageAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Workspaces\\WB\\CountryPackageApprovalService\\Country PackageAPI\\Country PackageAPI",
+  "CountryPackageApprovalService.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Workspaces\\WB\\CountryPackageApprovalService\\Country PackageAPI\\CountryPackageApprovalService.Application",
+  "CountryPackageApprovalService.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Workspaces\\WB\\CountryPackageApprovalService\\Country PackageAPI\\CountryPackageApprovalService.Domain",
+  "CountryPackageApprovalService.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Workspaces\\WB\\CountryPackageApprovalService\\Country PackageAPI\\CountryPackageApprovalService.Infrastructure"
+}

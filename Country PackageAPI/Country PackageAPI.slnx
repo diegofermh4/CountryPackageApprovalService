@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="CountryPackageApprovalService.Domain/CountryPackageApprovalService.Domain.csproj" />
+    <Project Path="CountryPackageApprovalService.Application/CountryPackageApprovalService.Application.csproj" />
+    <Project Path="CountryPackageApprovalService.Infrastructure/CountryPackageApprovalService.Infrastructure.csproj" />
+    <Project Path="Country PackageAPI/Country PackageAPI.csproj" />
+  </Folder>
+  <Folder Name="/test/">
+    <Project Path="CountryPackageApprovalService.Tests/CountryPackageApprovalService.Tests.csproj" />
+  </Folder>
+</Solution>

@@ -1,0 +1,344 @@
+<mxfile host="app.diagrams.net" agent="claude-cowork" version="24.0.0" type="device">
+  <diagram id="page_data_model" name="1 - Data Model (ERD)">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+<mxCell id="dm_country" value="&lt;b&gt;Country&lt;/b&gt;&lt;hr size=1 style='margin:3px 0;border-color:#6c8ebf'/&gt;PK  Code : string&lt;br/&gt;Name : string&lt;br/&gt;Region : string" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;spacing=8;rounded=0;" vertex="1" parent="1"><mxGeometry x="40" y="40" width="230" height="92" as="geometry"/></mxCell>
+<mxCell id="dm_roadmap" value="&lt;b&gt;RoadmapTemplate&lt;/b&gt;&lt;hr size=1 style='margin:3px 0;border-color:#6c8ebf'/&gt;PK  Id : guid&lt;br/&gt;Name : string&lt;br/&gt;Version : int&lt;br/&gt;IsActive : bool" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;spacing=8;rounded=0;" vertex="1" parent="1"><mxGeometry x="340" y="40" width="230" height="110" as="geometry"/></mxCell>
+<mxCell id="dm_user" value="&lt;b&gt;User&lt;/b&gt;&lt;hr size=1 style='margin:3px 0;border-color:#6c8ebf'/&gt;PK  Id : guid&lt;br/&gt;ExternalId : string (Entra oid)&lt;br/&gt;DisplayName : string&lt;br/&gt;Email : string" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;spacing=8;rounded=0;" vertex="1" parent="1"><mxGeometry x="940" y="40" width="230" height="110" as="geometry"/></mxCell>
+<mxCell id="dm_roadmapstep" value="&lt;b&gt;RoadmapStepTemplate&lt;/b&gt;&lt;hr size=1 style='margin:3px 0;border-color:#6c8ebf'/&gt;PK  Id : guid&lt;br/&gt;FK  RoadmapTemplateId : guid&lt;br/&gt;StepOrder : int&lt;br/&gt;StepType : Decision/Information&lt;br/&gt;OrgLevel : Country/Regional&lt;br/&gt;Name : string" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;spacing=8;rounded=0;" vertex="1" parent="1"><mxGeometry x="340" y="210" width="230" height="146" as="geometry"/></mxCell>
+<mxCell id="dm_ucr" value="&lt;b&gt;UserCountryRole&lt;/b&gt;&lt;hr size=1 style='margin:3px 0;border-color:#d6b656'/&gt;PK  Id : guid&lt;br/&gt;FK  UserId : guid&lt;br/&gt;FK  CountryCode : string&lt;br/&gt;Role : Editor/Reviewer&lt;br/&gt;OrgLevel : Country/Regional/Both" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;spacing=8;rounded=0;" vertex="1" parent="1"><mxGeometry x="940" y="210" width="230" height="128" as="geometry"/></mxCell>
+<mxCell id="dm_package" value="&lt;b&gt;CountryPackage&lt;/b&gt;&lt;hr size=1 style='margin:3px 0;border-color:#82b366'/&gt;PK  Id : guid&lt;br/&gt;FK  CountryCode : string&lt;br/&gt;FK  RoadmapTemplateId : guid&lt;br/&gt;Title : string&lt;br/&gt;Status : InProgress/ReturnedForRevision/Completed&lt;br/&gt;CurrentStepOrder : int&lt;br/&gt;FK  CreatedBy : guid&lt;br/&gt;CreatedAt : datetime&lt;br/&gt;RowVersion : rowversion (concurrency)" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;spacing=8;rounded=0;" vertex="1" parent="1"><mxGeometry x="340" y="340" width="260" height="200" as="geometry"/></mxCell>
+<mxCell id="dm_step" value="&lt;b&gt;ApprovalStep&lt;/b&gt;&lt;hr size=1 style='margin:3px 0;border-color:#82b366'/&gt;PK  Id : guid&lt;br/&gt;FK  PackageId : guid&lt;br/&gt;FK  TemplateStepId : guid&lt;br/&gt;StepOrder : int&lt;br/&gt;StepType : Decision/Information&lt;br/&gt;OrgLevel : Country/Regional&lt;br/&gt;Status : NotStarted/PendingApproval/Completed/ReturnedForRevision&lt;br/&gt;FK  AssignedApproverId : guid&lt;br/&gt;FK  SubmittedBy : guid&lt;br/&gt;SubmittedAt : datetime&lt;br/&gt;FK  DecidedBy : guid&lt;br/&gt;DecidedAt : datetime&lt;br/&gt;DecisionComment : string&lt;br/&gt;IsLocked : bool (snapshot)&lt;br/&gt;RowVersion : rowversion (concurrency)" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;spacing=8;rounded=0;" vertex="1" parent="1"><mxGeometry x="340" y="600" width="280" height="308" as="geometry"/></mxCell>
+<mxCell id="dm_doc" value="&lt;b&gt;DocumentVersion&lt;/b&gt;&lt;hr size=1 style='margin:3px 0;border-color:#b85450'/&gt;PK  Id : guid&lt;br/&gt;FK  StepId : guid&lt;br/&gt;VersionNumber : int&lt;br/&gt;FileName : string&lt;br/&gt;BlobUri : string&lt;br/&gt;ContentType : string&lt;br/&gt;SizeBytes : long&lt;br/&gt;Checksum : string&lt;br/&gt;FK  UploadedBy : guid&lt;br/&gt;UploadedAt : datetime&lt;br/&gt;IsSnapshot : bool" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;spacing=8;rounded=0;" vertex="1" parent="1"><mxGeometry x="40" y="968" width="260" height="236" as="geometry"/></mxCell>
+<mxCell id="dm_audit" value="&lt;b&gt;AuditLogEntry&lt;/b&gt;&lt;hr size=1 style='margin:3px 0;border-color:#b85450'/&gt;PK  Id : guid&lt;br/&gt;FK  PackageId : guid&lt;br/&gt;FK  StepId : guid (nullable)&lt;br/&gt;FK  ActorUserId : guid&lt;br/&gt;Action : string&lt;br/&gt;DetailsJson : string&lt;br/&gt;Timestamp : datetime" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;spacing=8;rounded=0;" vertex="1" parent="1"><mxGeometry x="700" y="968" width="260" height="164" as="geometry"/></mxCell>
+<mxCell id="dm_e1" value="defines" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;endArrow=ERzeroToMany;startArrow=ERmandOne;endFill=0;startFill=0;fontSize=9;strokeColor=#666666;" edge="1" source="dm_roadmap" target="dm_roadmapstep" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="dm_e2" value="has" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;endArrow=ERzeroToMany;startArrow=ERmandOne;endFill=0;startFill=0;fontSize=9;strokeColor=#666666;" edge="1" source="dm_user" target="dm_ucr" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="dm_e3" value="scopes" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;endArrow=ERzeroToMany;startArrow=ERmandOne;endFill=0;startFill=0;fontSize=9;strokeColor=#666666;" edge="1" source="dm_country" target="dm_ucr" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="dm_e4" value="owns" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;endArrow=ERzeroToMany;startArrow=ERmandOne;endFill=0;startFill=0;fontSize=9;strokeColor=#666666;" edge="1" source="dm_country" target="dm_package" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="dm_e5" value="instantiated by" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;endArrow=ERzeroToMany;startArrow=ERmandOne;endFill=0;startFill=0;fontSize=9;strokeColor=#666666;" edge="1" source="dm_roadmap" target="dm_package" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="dm_e6" value="contains" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;endArrow=ERzeroToMany;startArrow=ERmandOne;endFill=0;startFill=0;fontSize=9;strokeColor=#666666;" edge="1" source="dm_package" target="dm_step" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="dm_e7" value="instantiates" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;endArrow=ERzeroToMany;startArrow=ERmandOne;endFill=0;startFill=0;fontSize=9;strokeColor=#666666;" edge="1" source="dm_roadmapstep" target="dm_step" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="dm_e8" value="attaches" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;endArrow=ERzeroToMany;startArrow=ERmandOne;endFill=0;startFill=0;fontSize=9;strokeColor=#666666;" edge="1" source="dm_step" target="dm_doc" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="dm_e9" value="records" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;endArrow=ERzeroToMany;startArrow=ERmandOne;endFill=0;startFill=0;fontSize=9;strokeColor=#666666;" edge="1" source="dm_step" target="dm_audit" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="dm_e10" value="records" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;endArrow=ERzeroToMany;startArrow=ERmandOne;endFill=0;startFill=0;fontSize=9;strokeColor=#666666;" edge="1" source="dm_package" target="dm_audit" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="dm_e11" value="approves / submits" style="edgeStyle=entityRelationEdgeStyle;rounded=0;html=1;endArrow=ERzeroToMany;startArrow=ERmandOne;endFill=0;startFill=0;fontSize=9;strokeColor=#666666;" edge="1" source="dm_user" target="dm_step" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="dm_note" value="Notes:&lt;br/&gt;- IsLocked + RowVersion enforce snapshot immutability and optimistic concurrency (see ARCHITECTURE.md §3.3).&lt;br/&gt;- UserCountryRole is the authorization store: Role x CountryCode x OrgLevel (see RBAC page)." style="text;html=1;align=left;verticalAlign=top;fontSize=11;fontColor=#666666;" vertex="1" parent="1"><mxGeometry x="40" y="1244" width="700" height="60" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="page_component" name="2 - Component Diagram">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+<mxCell id="cd_api" value="API Layer" style="swimlane;html=1;startSize=26;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=12;verticalAlign=top;" vertex="1" connectable="0" parent="1"><mxGeometry x="40" y="40" width="480" height="160" as="geometry"/></mxCell>
+<mxCell id="cd_ctrl" value="Package &amp; Step
+Controllers" style="shape=component;align=center;verticalAlign=middle;spacingLeft=20;html=1;fillColor=#ffffff;strokeColor=#666666;fontSize=11;whiteSpace=wrap;" vertex="1" parent="cd_api"><mxGeometry x="20" y="40" width="180" height="60" as="geometry"/></mxCell>
+<mxCell id="cd_mw" value="AuthN/AuthZ Middleware +
+Resource-based Policy Handlers" style="shape=component;align=center;verticalAlign=middle;spacingLeft=20;html=1;fillColor=#ffffff;strokeColor=#666666;fontSize=11;whiteSpace=wrap;" vertex="1" parent="cd_api"><mxGeometry x="210" y="40" width="240" height="60" as="geometry"/></mxCell>
+<mxCell id="cd_val" value="Request Validators
+(FluentValidation)" style="shape=component;align=center;verticalAlign=middle;spacingLeft=20;html=1;fillColor=#ffffff;strokeColor=#666666;fontSize=11;whiteSpace=wrap;" vertex="1" parent="cd_api"><mxGeometry x="20" y="100" width="180" height="45" as="geometry"/></mxCell>
+<mxCell id="cd_swagger" value="OpenAPI / Swagger
+generation" style="shape=component;align=center;verticalAlign=middle;spacingLeft=20;html=1;fillColor=#ffffff;strokeColor=#666666;fontSize=11;whiteSpace=wrap;" vertex="1" parent="cd_api"><mxGeometry x="210" y="100" width="240" height="45" as="geometry"/></mxCell>
+<mxCell id="cd_app" value="Application Layer" style="swimlane;html=1;startSize=26;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=12;verticalAlign=top;" vertex="1" connectable="0" parent="1"><mxGeometry x="40" y="230" width="480" height="130" as="geometry"/></mxCell>
+<mxCell id="cd_svc" value="Approval Workflow
+Service" style="shape=component;align=center;verticalAlign=middle;spacingLeft=20;html=1;fillColor=#ffffff;strokeColor=#666666;fontSize=11;whiteSpace=wrap;" vertex="1" parent="cd_app"><mxGeometry x="20" y="35" width="150" height="70" as="geometry"/></mxCell>
+<mxCell id="cd_sm" value="Step State
+Machine" style="shape=component;align=center;verticalAlign=middle;spacingLeft=20;html=1;fillColor=#ffffff;strokeColor=#666666;fontSize=11;whiteSpace=wrap;" vertex="1" parent="cd_app"><mxGeometry x="190" y="35" width="130" height="70" as="geometry"/></mxCell>
+<mxCell id="cd_idemp" value="Idempotency
+Handler" style="shape=component;align=center;verticalAlign=middle;spacingLeft=20;html=1;fillColor=#ffffff;strokeColor=#666666;fontSize=11;whiteSpace=wrap;" vertex="1" parent="cd_app"><mxGeometry x="340" y="35" width="130" height="70" as="geometry"/></mxCell>
+<mxCell id="cd_dom" value="Domain Layer" style="swimlane;html=1;startSize=26;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=12;verticalAlign=top;" vertex="1" connectable="0" parent="1"><mxGeometry x="40" y="390" width="480" height="110" as="geometry"/></mxCell>
+<mxCell id="cd_agg" value="CountryPackage / ApprovalStep
+Aggregates" style="shape=component;align=center;verticalAlign=middle;spacingLeft=20;html=1;fillColor=#ffffff;strokeColor=#666666;fontSize=11;whiteSpace=wrap;" vertex="1" parent="cd_dom"><mxGeometry x="20" y="35" width="220" height="55" as="geometry"/></mxCell>
+<mxCell id="cd_evt" value="Domain Events
+(Submitted/Completed/Returned)" style="shape=component;align=center;verticalAlign=middle;spacingLeft=20;html=1;fillColor=#ffffff;strokeColor=#666666;fontSize=11;whiteSpace=wrap;" vertex="1" parent="cd_dom"><mxGeometry x="260" y="35" width="210" height="55" as="geometry"/></mxCell>
+<mxCell id="cd_infra" value="Infrastructure Layer" style="swimlane;html=1;startSize=26;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=12;verticalAlign=top;" vertex="1" connectable="0" parent="1"><mxGeometry x="40" y="530" width="480" height="160" as="geometry"/></mxCell>
+<mxCell id="cd_repo" value="EF Core
+Repositories" style="shape=component;align=center;verticalAlign=middle;spacingLeft=20;html=1;fillColor=#ffffff;strokeColor=#666666;fontSize=11;whiteSpace=wrap;" vertex="1" parent="cd_infra"><mxGeometry x="20" y="35" width="140" height="55" as="geometry"/></mxCell>
+<mxCell id="cd_docstore" value="IDocumentStore" style="shape=component;align=center;verticalAlign=middle;spacingLeft=20;html=1;fillColor=#ffffff;strokeColor=#666666;fontSize=11;whiteSpace=wrap;" vertex="1" parent="cd_infra"><mxGeometry x="175" y="35" width="140" height="55" as="geometry"/></mxCell>
+<mxCell id="cd_audit" value="Audit
+Interceptor" style="shape=component;align=center;verticalAlign=middle;spacingLeft=20;html=1;fillColor=#ffffff;strokeColor=#666666;fontSize=11;whiteSpace=wrap;" vertex="1" parent="cd_infra"><mxGeometry x="330" y="35" width="130" height="55" as="geometry"/></mxCell>
+<mxCell id="cd_outbox" value="Outbox
+Publisher" style="shape=component;align=center;verticalAlign=middle;spacingLeft=20;html=1;fillColor=#ffffff;strokeColor=#666666;fontSize=11;whiteSpace=wrap;" vertex="1" parent="cd_infra"><mxGeometry x="20" y="100" width="140" height="45" as="geometry"/></mxCell>
+<mxCell id="cd_ui" value="Swagger UI / Test client / API consumers" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#666666;fontSize=11;" vertex="1" parent="1"><mxGeometry x="620" y="60" width="220" height="50" as="geometry"/></mxCell>
+<mxCell id="cd_db" value="Relational DB
+(SQLite / Azure SQL)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#f5f5f5;strokeColor=#666666;fontSize=11;" vertex="1" parent="1"><mxGeometry x="620" y="550" width="180" height="70" as="geometry"/></mxCell>
+<mxCell id="cd_files" value="Document Storage
+(local disk / Blob Storage)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#f5f5f5;strokeColor=#666666;fontSize=11;" vertex="1" parent="1"><mxGeometry x="620" y="640" width="180" height="70" as="geometry"/></mxCell>
+<mxCell id="cd_bus" value="Event Bus
+(in-process / Service Bus)" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;" vertex="1" parent="1"><mxGeometry x="850" y="640" width="200" height="60" as="geometry"/></mxCell>
+<mxCell id="cd_platform" value="Wider WBG Platform" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=12;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="850" y="550" width="200" height="60" as="geometry"/></mxCell>
+<mxCell id="cd_ex1" value="HTTP" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontSize=10;" edge="1" source="cd_ui" target="cd_ctrl" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="cd_ex2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontSize=10;" edge="1" source="cd_repo" target="cd_db" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="cd_ex3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontSize=10;" edge="1" source="cd_docstore" target="cd_files" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="cd_ex4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontSize=10;" edge="1" source="cd_audit" target="cd_db" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="cd_ex5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontSize=10;" edge="1" source="cd_outbox" target="cd_bus" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="cd_ex6" value="domain events" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontSize=10;" edge="1" source="cd_bus" target="cd_platform" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="cd_ex7" value="REST calls" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontSize=10;dashed=1;" edge="1" source="cd_platform" target="cd_ui" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="page_integrations" name="3 - Service Integrations (Azure)">
+    <mxGraphModel dx="3368" dy="929" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="si_ai_group" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#999999;dashed=1;verticalAlign=top;align=left;fontStyle=1;fontSize=12;spacing=6;" value="AI-assisted document generation (see ARCHITECTURE.md &#167;7) - shared 'Document Generation Platform' resource group, separate from the core service" vertex="1">
+          <mxGeometry height="485" width="1010" x="-260" y="495" as="geometry" />
+        </mxCell>
+        <mxCell id="8AzdsSRs-Vqnt96meDUM-19" parent="1" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;" value="" vertex="1">
+          <mxGeometry height="286.52" width="150" x="495.5" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="8AzdsSRs-Vqnt96meDUM-18" parent="1" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;" value="" vertex="1">
+          <mxGeometry height="286.52" width="150" x="280" y="135.98" as="geometry" />
+        </mxCell>
+        <mxCell id="8AzdsSRs-Vqnt96meDUM-3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;" value="" vertex="1">
+          <mxGeometry height="726" width="800" x="650" y="114" as="geometry" />
+        </mxCell>
+        <mxCell id="si_e1" edge="1" parent="1" source="8AzdsSRs-Vqnt96meDUM-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontSize=10;entryX=0;entryY=0.471;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.904;exitY=0.62;exitDx=0;exitDy=0;exitPerimeter=0;" target="Wf461tB2x-C6X62v80Q--5">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="245" y="258.028" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="si_e2" edge="1" parent="1" source="Wf461tB2x-C6X62v80Q--5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontSize=10;exitX=1.029;exitY=0.515;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="Wf461tB2x-C6X62v80Q--6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="si_e3" edge="1" parent="1" source="Wf461tB2x-C6X62v80Q--6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontSize=10;entryX=0.059;entryY=0.455;entryDx=0;entryDy=0;entryPerimeter=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="Wf461tB2x-C6X62v80Q--2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="si_e5" edge="1" parent="1" source="Wf461tB2x-C6X62v80Q--2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontSize=10;dashed=1;exitX=0.956;exitY=0.152;exitDx=0;exitDy=0;exitPerimeter=0;" target="Wf461tB2x-C6X62v80Q--15" value="read secrets">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="si_e7" edge="1" parent="1" source="Wf461tB2x-C6X62v80Q--2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontSize=10;exitX=0.926;exitY=0.621;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="Wf461tB2x-C6X62v80Q--22">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1225" y="380" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="si_e9" edge="1" parent="1" source="Wf461tB2x-C6X62v80Q--2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontSize=10;dashed=1;exitX=0.971;exitY=0.409;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.432;entryY=0.048;entryDx=0;entryDy=0;entryPerimeter=0;" target="Wf461tB2x-C6X62v80Q--23" value="traces / logs">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="si_e10" edge="1" parent="1" source="Wf461tB2x-C6X62v80Q--11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontSize=10;exitX=-0.055;exitY=0.527;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1.044;entryY=0.533;entryDx=0;entryDy=0;entryPerimeter=0;" target="Wf461tB2x-C6X62v80Q--16">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="840" y="609" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+                <mxCell id="Wf461tB2x-C6X62v80Q--2" parent="1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/other/Worker_Container_App.svg;" value="Country Package Approval API" vertex="1">
+          <mxGeometry height="66" width="68" x="928" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="Wf461tB2x-C6X62v80Q--5" parent="1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/networking/Web_Application_Firewall_Policies_WAF.svg;" value="WAF" vertex="1">
+          <mxGeometry height="68" width="68" x="325" y="226" as="geometry" />
+        </mxCell>
+        <mxCell id="Wf461tB2x-C6X62v80Q--6" parent="1" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://icons.diagrams.net/assets/integration/1/API_Management.svg" value="API Management" vertex="1">
+          <mxGeometry height="57.26" width="71" x="535" y="232" as="geometry" />
+        </mxCell>
+        <mxCell id="Wf461tB2x-C6X62v80Q--7" parent="1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/identity/Entra_ID_Protection.svg;" value="Entra ID" vertex="1">
+          <mxGeometry height="60.440000000000005" width="68" x="935" y="16.78" as="geometry" />
+        </mxCell>
+        <mxCell id="Wf461tB2x-C6X62v80Q--8" edge="1" parent="1" source="Wf461tB2x-C6X62v80Q--7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.603;entryY=-0.015;entryDx=0;entryDy=0;entryPerimeter=0;" target="Wf461tB2x-C6X62v80Q--2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Wf461tB2x-C6X62v80Q--9" connectable="0" parent="Wf461tB2x-C6X62v80Q--8" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="&lt;span style=&quot;font-size: 10px;&quot;&gt;validate JWT, Authorization,&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;font-size: 10px;&quot;&gt;&amp;nbsp;Authentication&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry relative="1" x="0.2939" y="-2" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Wf461tB2x-C6X62v80Q--10" parent="1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/identity/App_Registrations.svg;" value="App Registrations" vertex="1">
+          <mxGeometry height="34" width="33.47" x="860" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="si_appreg_note" parent="1" style="text;html=1;align=left;verticalAlign=top;fontSize=9;fontColor=#666666;whiteSpace=wrap;" value="This API's own App Registration (App Roles, scope, consent) + one per consuming client (portal, services) - each with its own Client ID. See ARCHITECTURE.md §6.3." vertex="1">
+          <mxGeometry height="55" width="270" x="700" y="82" as="geometry" />
+        </mxCell>
+        <mxCell id="Wf461tB2x-C6X62v80Q--11" parent="1" style="image;sketch=0;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/mscae/Service_Bus.svg;" value="Azure Service Bus (topics, Events)" vertex="1">
+          <mxGeometry height="65" width="65" x="1027" y="575" as="geometry" />
+        </mxCell>
+        <mxCell id="Wf461tB2x-C6X62v80Q--12" parent="1" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;align=center;strokeColor=none;fillColor=#00BEF2;shape=mxgraph.azure.sql_database_sql_azure;" value="Azure SQL Database&lt;div&gt;&amp;nbsp;( redundant)&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="65" x="935" y="410" as="geometry" />
+        </mxCell>
+        <mxCell id="Wf461tB2x-C6X62v80Q--14" edge="1" parent="1" source="Wf461tB2x-C6X62v80Q--12" style="endArrow=classic;startArrow=classic;html=1;rounded=0;exitX=0.35;exitY=0;exitDx=0;exitDy=0;exitPerimeter=0;" target="Wf461tB2x-C6X62v80Q--2" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="610" y="410" as="sourcePoint" />
+            <mxPoint x="660" y="360" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Wf461tB2x-C6X62v80Q--15" parent="1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/security/Key_Vaults.svg;" value="Azure Key Vault" vertex="1">
+          <mxGeometry height="68" width="68" x="1081" y="114" as="geometry" />
+        </mxCell>
+        <mxCell id="Wf461tB2x-C6X62v80Q--16" parent="1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/compute/Function_Apps.svg;" value="Notification Service&lt;div&gt;&amp;nbsp;(Subscriber)&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="68" x="760" y="577" as="geometry" />
+        </mxCell>
+        <mxCell id="Wf461tB2x-C6X62v80Q--17" parent="1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/compute/Function_Apps.svg;" value="CPF / CPIA Reporting&lt;div&gt;(Subscriber)&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="68" x="765" y="690" as="geometry" />
+        </mxCell>
+        <mxCell id="Wf461tB2x-C6X62v80Q--20" edge="1" parent="1" source="Wf461tB2x-C6X62v80Q--2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.585;entryY=0.031;entryDx=0;entryDy=0;entryPerimeter=0;" target="Wf461tB2x-C6X62v80Q--11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Wf461tB2x-C6X62v80Q--21" connectable="0" parent="Wf461tB2x-C6X62v80Q--20" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="&lt;span style=&quot;font-size: 10px;&quot;&gt;outbox publish&lt;/span&gt;" vertex="1">
+          <mxGeometry relative="1" x="0.3733" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Wf461tB2x-C6X62v80Q--22" parent="1" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;align=center;strokeColor=none;fillColor=#00BEF2;shape=mxgraph.azure.storage_blob;" value="Azure Blob Storage&amp;nbsp;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;(Immutability policy)&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="45" width="50" x="1200" y="400" as="geometry" />
+        </mxCell>
+        <mxCell id="Wf461tB2x-C6X62v80Q--23" parent="1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/devops/Application_Insights.svg;" value="Application Insights&amp;nbsp;&lt;div&gt;+ Log Analytics&lt;/div&gt;" vertex="1">
+          <mxGeometry height="63" width="44" x="1330" y="445" as="geometry" />
+        </mxCell>
+        <mxCell id="Wf461tB2x-C6X62v80Q--24" edge="1" parent="1" source="Wf461tB2x-C6X62v80Q--11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1.015;entryY=0.583;entryDx=0;entryDy=0;entryPerimeter=0;" target="Wf461tB2x-C6X62v80Q--17">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1060" y="725" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8AzdsSRs-Vqnt96meDUM-1" parent="1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/containers/Container_Registries.svg;" value="Container Registry" vertex="1">
+          <mxGeometry height="30.02" width="33.47" x="860" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="8AzdsSRs-Vqnt96meDUM-2" parent="1" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://icons.diagrams.net/assets/azure/1/Virtual_Network_vNET.svg" value="Vnet Integration&lt;div&gt;&amp;nbsp;Subnet&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="104.47" x="1220" y="790" as="geometry" />
+        </mxCell>
+        <mxCell id="8AzdsSRs-Vqnt96meDUM-4" parent="1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/other/Private_Endpoints.svg;" value="Private endpoint" vertex="1">
+          <mxGeometry height="30.02" width="31.57" x="971.4300000000001" y="329.99999999999994" as="geometry" />
+        </mxCell>
+        <mxCell id="8AzdsSRs-Vqnt96meDUM-5" parent="1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/other/Private_Endpoints.svg;" value="Private endpoint" vertex="1">
+          <mxGeometry height="30.02" width="31.57" x="1027" y="180.00000000000003" as="geometry" />
+        </mxCell>
+        <mxCell id="8AzdsSRs-Vqnt96meDUM-6" parent="1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/other/Private_Endpoints.svg;" value="Private endpoint" vertex="1">
+          <mxGeometry height="30.02" width="31.57" x="1180" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="8AzdsSRs-Vqnt96meDUM-7" parent="1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/other/Private_Endpoints.svg;" value="Private endpoint" vertex="1">
+          <mxGeometry height="30.02" width="31.57" x="1081" y="477.98" as="geometry" />
+        </mxCell>
+        <mxCell id="8AzdsSRs-Vqnt96meDUM-8" parent="1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/other/Private_Endpoints.svg;" value="Private endpoint" vertex="1">
+          <mxGeometry height="30.02" width="31.57" x="920" y="560" as="geometry" />
+        </mxCell>
+        <mxCell id="8AzdsSRs-Vqnt96meDUM-9" parent="1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/other/Private_Endpoints.svg;" value="Private endpoint" vertex="1">
+          <mxGeometry height="30.02" width="31.57" x="910" y="670" as="geometry" />
+        </mxCell>
+        <mxCell id="8AzdsSRs-Vqnt96meDUM-10" parent="1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/other/Private_Endpoints.svg;" value="Private endpoint" vertex="1">
+          <mxGeometry height="30.02" width="31.57" x="1360" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="8AzdsSRs-Vqnt96meDUM-11" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Managed Identities" vertex="1">
+          <mxGeometry height="30" width="104.47" x="1250" y="690" as="geometry" />
+        </mxCell>
+        <mxCell id="8AzdsSRs-Vqnt96meDUM-12" parent="1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/networking/DNS_Zones.svg;" value="Private DNS&amp;nbsp;&lt;div&gt;Zone&lt;/div&gt;" vertex="1">
+          <mxGeometry height="64" width="64" x="210" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="8AzdsSRs-Vqnt96meDUM-13" parent="1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/general/Browser.svg;" value="Wider WBG Platform&amp;nbsp;&lt;div&gt;/&amp;nbsp;&lt;span style=&quot;background-color: light-dark(#ffffff, var(--ge-dark-color, #121212)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;API Consumers&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="52" width="65" x="150" y="226" as="geometry" />
+        </mxCell>
+        <mxCell id="8AzdsSRs-Vqnt96meDUM-15" parent="1" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://icons.diagrams.net/assets/azure/1/Virtual_Network_vNET.svg" value="&lt;span style=&quot;background-color: light-dark(rgb(255, 255, 255), rgb(18, 18, 18)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;WAF Subnet&lt;/span&gt;" vertex="1">
+          <mxGeometry height="40.78" width="71" x="310" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="8AzdsSRs-Vqnt96meDUM-17" parent="1" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://icons.diagrams.net/assets/azure/1/Virtual_Network_vNET.svg" value="&lt;span style=&quot;background-color: light-dark(rgb(255, 255, 255), rgb(18, 18, 18)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;APIM Subnet&lt;/span&gt;" vertex="1">
+          <mxGeometry height="40.78" width="71" x="535" y="340" as="geometry" />
+        </mxCell>
+                <mxCell id="jAtbFAkPgBh1tdU6CqMD-1" parent="1" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;align=center;strokeColor=none;fillColor=#00BEF2;shape=mxgraph.azure.storage_blob;" value="&lt;span style=&quot;font-size: 11px; white-space: normal;&quot;&gt;Unstructured repo (pdf / docx)&amp;nbsp;&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;font-size: 11px; white-space: normal;&quot;&gt;&amp;nbsp;Blob Storage&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="45" width="50" x="-230" y="560" as="geometry" />
+        </mxCell>
+        <mxCell id="jAtbFAkPgBh1tdU6CqMD-2" parent="1" style="editableCssRules=.*;sketch=0;html=1;verticalAlign=top;labelPosition=center;verticalLabelPosition=bottom;align=center;spacingTop=-6;fontSize=11;fontStyle=1;fontColor=#999999;shape=image;aspect=fixed;imageAspect=0;image=data:image/svg+xml,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGlkPSJzdmcyNDYzMyIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSItMi4zODQxODU3OTEwMTU2MjVlLTcgLTAuMDAwMDAxOTA3MzQ4NjMyODEyNSAyMDguNzEzMzQ4Mzg4NjcxODggMjU4Ljk2NjA5NDk3MDcwMzEiIGhlaWdodD0iMjU4Ljk2NjA5NDk3MDcwMzEiIHdpZHRoPSIyMDguNzEzMzQ4Mzg4NjcxODgiPiYjeGE7CTxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+CS5zdDB7ZmlsbDojNTk4NmYyO30JPC9zdHlsZT4JJiN4YTsgIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0zLjM5NDYyNDgsLTE3LjgxMDI4MikiIGlkPSJsYXllcjEiPiYjeGE7ICAgIDxwYXRoIGNsYXNzPSJzdDAiIHRyYW5zZm9ybT0ic2NhbGUoMC4yNjQ1ODMzMykiIGQ9Im0gMTEyLjQ3MDcsNjcuMzE0NDUzIGMgLTU4LjMyOTU1MiwwIC05OS42NDA2MjIsNDEuMDM3NjQ3IC05OS42NDA2MjIsMTA2Ljg1MTU2NyB2IDc3NC4xODc1IGMgMCw1Ni4zMTM3OCA0My4yNjY1OTYsOTcuNzMwNDggMTAxLjI3NzM0Miw5Ny43MzA0OCBIIDQxMC4wOTk2MSBWIDk0Ny41MDU4NiBIIDEwOS4zODI4MSBWIDE2My4yMTg3NSBoIDMwMC43MTY4IFYgNjcuMzE0NDUzIFogbSA0NzEuNzIwNzEsMjguNzc3MzQ0IGEgNjkuODg0NDg5LDY5Ljg4NDQ4OSAwIDAgMCAtNjkuODg0NzcsNjkuODg0NzYzIDY5Ljg4NDQ4OSw2OS44ODQ0ODkgMCAwIDAgNDkuMDY0NDUsNjYuNzAxMTcgdiA3Ni44ODg2OCBjIDAsMzIuMTczNTQgLTMuMDAyNDksNTQuMjA4MzYgLTkuMDA1ODYsNjQuMzQ3NjUgLTYuMDAzMzYsMTAuMTM5MyAtMTQuMDEyNDIsMTUuMjk2ODggLTQyLjIzODI4LDE1LjI5Njg4IGggLTQ5LjE0MjU3IHYgMzkuOTk0MTQgaCA0OS4xNDI1NyBjIDM1LjMwNTEsMCA2Mi45MTM3NiwtMTEuNzEyNTIgNzYuNjUyMzUsLTM0LjkxNjAyIDEzLjczODU4LC0yMy4yMDM1NSAxNC41OTM3NSwtNTAuOTg3NjggMTQuNTkzNzUsLTg0LjcyMjY1IFYgMjMzLjEzNDc3IEEgNjkuODg0NDg5LDY5Ljg4NDQ4OSAwIDAgMCA2NTQuMDc0MjIsMTY1Ljk3NjU2IDY5Ljg4NDQ4OSw2OS44ODQ0ODkgMCAwIDAgNTg0LjE5MTQxLDk2LjA5MTc5NyBaIE0gMjA5LjEwNzQyLDM1OS43OTY4OCB2IDk2LjYzNjcxIGggMjAwLjkxNzk3IHYgLTk2LjYzNjcxIHogbSA1MjIuNjc3NzQsMjguNjkzMzUgYSA2OS44ODQ0ODksNjkuODg0NDg5IDAgMCAwIC02OS44ODQ3Nyw2OS44ODQ3NyA2OS44ODQ0ODksNjkuODg0NDg5IDAgMCAwIDQ0LjUzMzIsNjUuMTE5MTQgYyAtMC44MjI3MiwyOC4wMzEwNCAtOC4yMTYzLDQwLjA3MTk4IC0yMC44MTgzNiw0OC40NzY1NiAtMTMuMzg1NTMsOC45MjcxNyAtMzcuNzE0NzQsMTMuMzk4NDQgLTcxLjI3OTI5LDEzLjM5ODQ0IEggNDYzLjY2NDA2IHYgMzkuOTk0MTQgaCAxNTAuNjcxODggYyAzNi41Mjk0MywwIDY4LjI5MTkyLC0zLjMyNDIzIDkzLjQ2ODc1LC0yMC4xMTUyMyAyMy4zMjM0OCwtMTUuNTU0OTYgMzYuNjM5MTcsLTQyLjk3NzMxIDM4LjQ3NDYxLC03OC41NDEwMiBBIDY5Ljg4NDQ4OSw2OS44ODQ0ODkgMCAwIDAgODAxLjY2Nzk3LDQ1OC4zNzUgNjkuODg0NDg5LDY5Ljg4NDQ4OSAwIDAgMCA3MzEuNzg1MTYsMzg4LjQ5MDIzIFogTSAyMDkuMTA3NDIsNTU2LjQ4MjQyIHYgOTYuNjM2NzIgaCAyMDAuOTE3OTcgdiAtOTYuNjM2NzIgeiBtIDAsMTk2LjY4NzUgdiA5Ni42MzY3MiBoIDIwMC45MTc5NyB2IC05Ni42MzY3MiB6IG0gMjU0Ljk3NjU2LDI3LjU0Njg4IHYgMzkuOTk0MTQgaCA5OC41OTk2MSBjIDMyLjMxNDI1LDAgNTUuNDQ0MTIsMi41Mjc5NSA2Ni4yMzA0Nyw4LjAwMTk1IDUuMzkzMTYsMi43MzcwMiA4LjA4NDg4LDUuMzU1MzIgMTAuNTQyOTcsMTAuMjMyNDIgMi40NTgwOSw0Ljg3NzE0IDQuNDA2MjUsMTIuNzc3NjggNC40MDYyNSwyNS4wMzEyNSB2IDE5LjgxODM2IGEgNjkuODg0NDg5LDY5Ljg4NDQ4OSAwIDAgMCAtNDkuNzIyNjYsNjYuODk2NDkgNjkuODg0NDg5LDY5Ljg4NDQ4OSAwIDAgMCA2OS44ODQ3Nyw2OS44ODQ3OSA2OS44ODQ0ODksNjkuODg0NDg5IDAgMCAwIDY5Ljg4NDc3LC02OS44ODQ3OSA2OS44ODQ0ODksNjkuODg0NDg5IDAgMCAwIC01MC4wNDQ5MywtNjYuOTgyNDMgdiAtMTkuNzMyNDIgYyAwLC0xNi4zNjg4MyAtMi40NjIyLC0zMC42ODU1IC04LjY4NzUsLTQzLjAzNzExIC02LjIyNTI2LC0xMi4zNTE2MSAtMTYuNDkwMTcsLTIxLjk3MzAyIC0yOC4xNjIxMSwtMjcuODk2NDggQyA2MjMuNjcxNzUsNzgxLjE5NjA4IDU5Ni4yMTY3LDc4MC43MTY4IDU2Mi42ODM1OSw3ODAuNzE2OCBaIi8+JiN4YTsgIDwvZz4mI3hhOzwvc3ZnPg==;" value="&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;Document Intelligence&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp;(extract)&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="64" width="51.81" x="-150" y="550" as="geometry" />
+        </mxCell>
+        <mxCell id="jAtbFAkPgBh1tdU6CqMD-4" parent="1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/app_services/Search_Services.svg;" value="Azure AI Search&lt;div&gt;&amp;nbsp;(Vector and Semantic Index)&lt;/div&gt;" vertex="1">
+          <mxGeometry height="49.120000000000005" width="68" x="60" y="560" as="geometry" />
+        </mxCell>
+        <mxCell id="jAtbFAkPgBh1tdU6CqMD-7" parent="1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/ai_machine_learning/Azure_OpenAI.svg;" value="Azure OpenAI&amp;nbsp;&lt;div&gt;embed: text-embedding-3-small (multilingual)&lt;/div&gt;&lt;div&gt;generate: GPT-4o deployment&lt;/div&gt;" vertex="1">
+          <mxGeometry height="68" width="68" x="60" y="760" as="geometry" />
+        </mxCell>
+        <mxCell id="si_chunkproc" parent="1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/other/Worker_Container_App.svg;" value="Chunk Processor&lt;div&gt;(Container App)&lt;/div&gt;" vertex="1">
+          <mxGeometry height="66" width="68" x="-50" y="550" as="geometry" />
+        </mxCell>
+        <mxCell id="si_docgen" parent="1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/other/Worker_Container_App.svg;" value="Document Generator&lt;div&gt;(Container App)&lt;/div&gt;" vertex="1">
+          <mxGeometry height="66" width="68" x="-50" y="760" as="geometry" />
+        </mxCell>
+        <mxCell id="si_e_blob_di" edge="1" parent="1" source="jAtbFAkPgBh1tdU6CqMD-1" target="jAtbFAkPgBh1tdU6CqMD-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontSize=10;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="si_e_di_chunk" edge="1" parent="1" source="jAtbFAkPgBh1tdU6CqMD-2" target="si_chunkproc" value="extracted text / layout" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontSize=10;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="si_e_chunk_search" edge="1" parent="1" source="si_chunkproc" target="jAtbFAkPgBh1tdU6CqMD-4" value="write chunks + vectors" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontSize=10;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="si_e_chunk_embed" edge="1" parent="1" source="si_chunkproc" target="jAtbFAkPgBh1tdU6CqMD-7" value="embed: text-embedding-3-small" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontSize=10;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="si_e_docgen_search" edge="1" parent="1" source="si_docgen" target="jAtbFAkPgBh1tdU6CqMD-4" value="semantic search / grounded passages" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=classic;startFill=1;endArrow=classic;endFill=1;fontSize=10;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="si_e_docgen_openai" edge="1" parent="1" source="si_docgen" target="jAtbFAkPgBh1tdU6CqMD-7" value="generate: GPT-4o + prompt template" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=classic;startFill=1;endArrow=classic;endFill=1;fontSize=10;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="si_e_api_docgen" edge="1" parent="1" source="si_docgen" target="Wf461tB2x-C6X62v80Q--2" value="POST .../generate-draft (internal call)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=classic;startFill=1;endArrow=classic;endFill=1;fontSize=10;dashed=1;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="si_ai_note" parent="1" style="text;html=1;align=left;verticalAlign=top;fontSize=10;fontColor=#666666;whiteSpace=wrap;" value="Chunk Processor and Document Generator are separate Container Apps from the core API (different workload shape - see ARCHITECTURE.md &#167;7), sharing the same Container Registry. Together with Document Intelligence, AI Search, Azure OpenAI and this Blob Storage they form ONE shared 'Document Generation Platform' resource group, separate from the core service's rg-country-package-core - a document-generation-with-approvals capability other WBG operational processes (e.g. MDB project-proposal generation) can reuse over time, reached only through Private Endpoints (internal use only). Two resource groups total; a further split is a later decision once there is a second real consumer, not a day-one default. An RG boundary here is a management boundary, never a network trust boundary." vertex="1">
+          <mxGeometry height="70" width="990" x="-260" y="900" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="page_rbac" name="4 - RBAC Approach">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+<mxCell id="rb_entra" value="Microsoft Entra ID
+App Registration + App Roles
+(or dev header in the exercise)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1"><mxGeometry x="40" y="40" width="220" height="60" as="geometry"/></mxCell>
+<mxCell id="rb_req" value="Incoming API request" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#666666;fontSize=11;" vertex="1" parent="1"><mxGeometry x="320" y="40" width="200" height="60" as="geometry"/></mxCell>
+<mxCell id="rb_authn" value="AuthN middleware
+identity (UserId) + coarse Role
+(Entra App Role / JWT 'roles' claim)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1"><mxGeometry x="580" y="40" width="220" height="60" as="geometry"/></mxCell>
+<mxCell id="rb_note2" value="Entra ID: API's App Registration exposes App Roles CountryEditor/CountryReviewer (scope, admin consent, App ID URI). Each consuming client (portal, service) has its own separate App Registration + Client ID. Security Groups map to the App Roles for provisioning. Coarse gate only - see rb_store below and ARCHITECTURE.md §6.3." style="text;html=1;align=left;verticalAlign=top;fontSize=10;fontColor=#666666;whiteSpace=wrap;" vertex="1" parent="1"><mxGeometry x="40" y="115" width="760" height="35" as="geometry"/></mxCell>
+<mxCell id="rb_handler" value="Resource-based AuthZ Handler
+(IAuthorizationHandler)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="580" y="160" width="260" height="70" as="geometry"/></mxCell>
+<mxCell id="rb_store" value="UserCountryRole store - authoritative
+Role x CountryCode x OrgLevel
+(re-read every request, no token lag)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;" vertex="1" parent="1"><mxGeometry x="320" y="280" width="240" height="70" as="geometry"/></mxCell>
+<mxCell id="rb_resource" value="Target resource
+CountryPackage / ApprovalStep
+(CountryCode, OrgLevel, AssignedApproverId)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;" vertex="1" parent="1"><mxGeometry x="620" y="280" width="260" height="70" as="geometry"/></mxCell>
+<mxCell id="rb_decision" value="Role, CountryCode, OrgLevel
+and (for decisions) AssignedApproverId
+all match?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;" vertex="1" parent="1"><mxGeometry x="480" y="400" width="260" height="90" as="geometry"/></mxCell>
+<mxCell id="rb_allow" value="200 OK
+action executed" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1"><mxGeometry x="340" y="550" width="160" height="55" as="geometry"/></mxCell>
+<mxCell id="rb_deny" value="403 Forbidden" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;" vertex="1" parent="1"><mxGeometry x="620" y="550" width="160" height="55" as="geometry"/></mxCell>
+<mxCell id="rb_audit" value="AuditLogEntry written
+(both outcomes)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;" vertex="1" parent="1"><mxGeometry x="480" y="650" width="220" height="55" as="geometry"/></mxCell>
+<mxCell id="rb_e1" value="JWT / dev header" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontSize=10;" edge="1" source="rb_entra" target="rb_req" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="rb_e2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontSize=10;" edge="1" source="rb_req" target="rb_authn" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="rb_e3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontSize=10;" edge="1" source="rb_authn" target="rb_handler" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="rb_e4" value="load claims" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontSize=10;" edge="1" source="rb_handler" target="rb_store" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="rb_e5" value="load resource" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontSize=10;" edge="1" source="rb_handler" target="rb_resource" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="rb_e6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontSize=10;" edge="1" source="rb_store" target="rb_decision" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="rb_e7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontSize=10;" edge="1" source="rb_resource" target="rb_decision" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="rb_e8" value="yes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontSize=10;" edge="1" source="rb_decision" target="rb_allow" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="rb_e9" value="no" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontSize=10;" edge="1" source="rb_decision" target="rb_deny" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="rb_e10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontSize=10;" edge="1" source="rb_allow" target="rb_audit" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="rb_e11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontSize=10;" edge="1" source="rb_deny" target="rb_audit" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="rb_th0" value="Action" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#666666;strokeColor=#333333;fontColor=#ffffff;fontStyle=1;fontSize=11;align=left;spacing=6;" vertex="1" parent="1"><mxGeometry x="40" y="760" width="260" height="40" as="geometry"/></mxCell>
+<mxCell id="rb_th1" value="Required role &amp; scope" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#666666;strokeColor=#333333;fontColor=#ffffff;fontStyle=1;fontSize=11;align=left;spacing=6;" vertex="1" parent="1"><mxGeometry x="300" y="760" width="300" height="40" as="geometry"/></mxCell>
+<mxCell id="rb_th2" value="Additional check" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#666666;strokeColor=#333333;fontColor=#ffffff;fontStyle=1;fontSize=11;align=left;spacing=6;" vertex="1" parent="1"><mxGeometry x="600" y="760" width="380" height="40" as="geometry"/></mxCell>
+<mxCell id="rb_tc0_0" value="Create roadmap" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cccccc;fontSize=10;align=left;verticalAlign=top;spacing=6;" vertex="1" parent="1"><mxGeometry x="40" y="800" width="260" height="40" as="geometry"/></mxCell>
+<mxCell id="rb_tc0_1" value="Editor, package's CountryCode" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cccccc;fontSize=10;align=left;verticalAlign=top;spacing=6;" vertex="1" parent="1"><mxGeometry x="300" y="800" width="300" height="40" as="geometry"/></mxCell>
+<mxCell id="rb_tc0_2" value="—" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cccccc;fontSize=10;align=left;verticalAlign=top;spacing=6;" vertex="1" parent="1"><mxGeometry x="600" y="800" width="380" height="40" as="geometry"/></mxCell>
+<mxCell id="rb_tc1_0" value="Upload document to a step" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#cccccc;fontSize=10;align=left;verticalAlign=top;spacing=6;" vertex="1" parent="1"><mxGeometry x="40" y="840" width="260" height="40" as="geometry"/></mxCell>
+<mxCell id="rb_tc1_1" value="Editor, same CountryCode" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#cccccc;fontSize=10;align=left;verticalAlign=top;spacing=6;" vertex="1" parent="1"><mxGeometry x="300" y="840" width="300" height="40" as="geometry"/></mxCell>
+<mxCell id="rb_tc1_2" value="Step NotStarted / ReturnedForRevision, not IsLocked" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#cccccc;fontSize=10;align=left;verticalAlign=top;spacing=6;" vertex="1" parent="1"><mxGeometry x="600" y="840" width="380" height="40" as="geometry"/></mxCell>
+<mxCell id="rb_tc2_0" value="Submit a step" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cccccc;fontSize=10;align=left;verticalAlign=top;spacing=6;" vertex="1" parent="1"><mxGeometry x="40" y="880" width="260" height="40" as="geometry"/></mxCell>
+<mxCell id="rb_tc2_1" value="Editor, same CountryCode" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cccccc;fontSize=10;align=left;verticalAlign=top;spacing=6;" vertex="1" parent="1"><mxGeometry x="300" y="880" width="300" height="40" as="geometry"/></mxCell>
+<mxCell id="rb_tc2_2" value="Named approver holds Reviewer clearance for CountryCode + OrgLevel" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cccccc;fontSize=10;align=left;verticalAlign=top;spacing=6;" vertex="1" parent="1"><mxGeometry x="600" y="880" width="380" height="40" as="geometry"/></mxCell>
+<mxCell id="rb_tc3_0" value="Approve / return a step" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#cccccc;fontSize=10;align=left;verticalAlign=top;spacing=6;" vertex="1" parent="1"><mxGeometry x="40" y="920" width="260" height="40" as="geometry"/></mxCell>
+<mxCell id="rb_tc3_1" value="Reviewer, same CountryCode + OrgLevel" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#cccccc;fontSize=10;align=left;verticalAlign=top;spacing=6;" vertex="1" parent="1"><mxGeometry x="300" y="920" width="300" height="40" as="geometry"/></mxCell>
+<mxCell id="rb_tc3_2" value="Caller.Id == Step.AssignedApproverId" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#cccccc;fontSize=10;align=left;verticalAlign=top;spacing=6;" vertex="1" parent="1"><mxGeometry x="600" y="920" width="380" height="40" as="geometry"/></mxCell>
+<mxCell id="rb_tc4_0" value="Read package / step / audit trail" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cccccc;fontSize=10;align=left;verticalAlign=top;spacing=6;" vertex="1" parent="1"><mxGeometry x="40" y="960" width="260" height="40" as="geometry"/></mxCell>
+<mxCell id="rb_tc4_1" value="Editor or Reviewer, same CountryCode" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cccccc;fontSize=10;align=left;verticalAlign=top;spacing=6;" vertex="1" parent="1"><mxGeometry x="300" y="960" width="300" height="40" as="geometry"/></mxCell>
+<mxCell id="rb_tc4_2" value="—" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cccccc;fontSize=10;align=left;verticalAlign=top;spacing=6;" vertex="1" parent="1"><mxGeometry x="600" y="960" width="380" height="40" as="geometry"/></mxCell>
+<mxCell id="rb_note" value="Design choice: BOTH the named approver and current role/country/org-level clearance are required for a decision (not role-pool). See ARCHITECTURE.md §4.3 for the trade-off." style="text;html=1;align=left;verticalAlign=top;fontSize=11;fontColor=#666666;" vertex="1" parent="1"><mxGeometry x="40" y="1040" width="900" height="40" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

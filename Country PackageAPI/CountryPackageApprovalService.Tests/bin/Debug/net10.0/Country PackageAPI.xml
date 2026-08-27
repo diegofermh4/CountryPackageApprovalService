@@ -1,0 +1,139 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Country PackageAPI</name>
+    </assembly>
+    <members>
+        <member name="T:Country_PackageAPI.Authorization.CountryRoleRequirement">
+            <summary>
+            "Does the caller hold <see cref="P:Country_PackageAPI.Authorization.CountryRoleRequirement.Role"/> for the resource's country (and, when specified, org level)?"
+            The coarse-grained, resource-based check the API layer is expected to run before invoking Application
+            (see <c>IApprovalWorkflowService</c>'s remarks and docs/ARCHITECTURE.md §4.2). It is deliberately coarse:
+            step-instance-specific rules ("only the named approver may decide this step") stay in the Domain, and the
+            "does the person being *named* as approver currently hold clearance" check stays in Application, because
+            neither can be expressed against the caller's own principal alone.
+            </summary>
+        </member>
+        <member name="T:Country_PackageAPI.Authorization.CountryPackageResource">
+            <summary>The resource a <see cref="T:Country_PackageAPI.Authorization.CountryRoleRequirement"/> is evaluated against. <see cref="P:Country_PackageAPI.Authorization.CountryPackageResource.StepOrgLevel"/>
+            is null for actions that are not scoped to one specific step (e.g. creating a roadmap) - in that case the
+            handler accepts a grant at any org level for the country; when it is set (submit/decide on a known step),
+            the grant must cover that exact level.</summary>
+        </member>
+        <member name="M:Country_PackageAPI.Authorization.CountryPackageResource.#ctor(System.String,System.Nullable{CountryPackageApprovalService.Domain.OrgLevel})">
+            <summary>The resource a <see cref="T:Country_PackageAPI.Authorization.CountryRoleRequirement"/> is evaluated against. <see cref="P:Country_PackageAPI.Authorization.CountryPackageResource.StepOrgLevel"/>
+            is null for actions that are not scoped to one specific step (e.g. creating a roadmap) - in that case the
+            handler accepts a grant at any org level for the country; when it is set (submit/decide on a known step),
+            the grant must cover that exact level.</summary>
+        </member>
+        <member name="T:Country_PackageAPI.Authorization.CountryRoleAuthorizationHandler">
+            <summary>
+            Resolves the caller's seeded <see cref="T:CountryPackageApprovalService.Domain.User"/> from the authenticated principal's id and re-checks their
+            current role/country/org-level clearance against <see cref="T:CountryPackageApprovalService.Domain.UserCountryRole"/> - never trusts anything
+            about roles from the principal itself, because the dev-header handler (like Entra ID in production) never
+            puts role claims on the principal in the first place (docs/ARCHITECTURE.md §4.1).
+            </summary>
+        </member>
+        <member name="M:Country_PackageAPI.Auth.ClaimsPrincipalExtensions.GetUserId(System.Security.Claims.ClaimsPrincipal)">
+            <summary>The authenticated caller's seeded user id, or null if unauthenticated / the claim is missing
+            or malformed. Controllers use this instead of touching <see cref="F:Country_PackageAPI.Auth.DevHeaderAuthenticationHandler.HeaderName"/>
+            directly, so nothing outside Auth/ knows how identity was established.</summary>
+        </member>
+        <member name="M:Country_PackageAPI.Auth.ClaimsPrincipalExtensions.RequireUserId(System.Security.Claims.ClaimsPrincipal)">
+            <summary>Same as <see cref="M:Country_PackageAPI.Auth.ClaimsPrincipalExtensions.GetUserId(System.Security.Claims.ClaimsPrincipal)"/> but throws if identity is missing - safe to call from any
+            action guarded by <c>[Authorize]</c>, where the middleware pipeline guarantees a valid claim exists.</summary>
+        </member>
+        <member name="T:Country_PackageAPI.Auth.DevHeaderAuthenticationHandler">
+             <summary>
+             Stand-in for Microsoft Entra ID in this exercise: identity is established from an
+             <c>X-User-Id</c> header carrying a seeded <see cref="!:Domain.User"/>'s GUID, instead of validating a real
+             OIDC bearer token. This is deliberately the *only* place in the solution that knows about that header -
+             everywhere else deals in <c>ClaimsPrincipal</c>/<c>Guid</c> the same way it would with real Entra ID tokens.
+             Swapping to Entra ID in the Azure target architecture (docs/ARCHITECTURE.md §6.3) means replacing the
+             scheme registration in Program.cs with <c>AddMicrosoftIdentityWebApi</c> - nothing downstream of
+             authentication (authorization handlers, controllers, Application/Domain) changes, because none of it reads
+             this header directly; it only ever reads <see cref="F:System.Security.Claims.ClaimTypes.NameIdentifier"/> off the principal.
+            
+             This handler ONLY establishes identity. It never queries roles/clearance - that is always re-read from
+             <c>UserCountryRole</c> by the resource-based authorization handlers and, defensively, by the Application
+             layer itself (docs/ARCHITECTURE.md §4.1).
+             </summary>
+        </member>
+        <member name="T:Country_PackageAPI.Controllers.CountryPackagesController">
+            <summary>
+            The Country Package Approval Service's core operations (docs/ARCHITECTURE.md §5). Every action here is a
+            thin adapter: bind input, run the coarse-grained resource-based authorization check for the target country
+            (and, once a step's org level is known, that level too), then hand off to
+            <see cref="T:CountryPackageApprovalService.Application.Services.IApprovalWorkflowService"/>. No business rule, persistence, or cross-aggregate check lives here -
+            see that interface's remarks for exactly where the authorization responsibility splits between this
+            controller, the Domain, and the Application layer.
+            </summary>
+        </member>
+        <member name="M:Country_PackageAPI.Controllers.CountryPackagesController.CreateRoadmap(CountryPackageApprovalService.Application.Dtos.CreateRoadmapRequest,System.Threading.CancellationToken)">
+            <summary>Country Editor: create a package's roadmap instance from the currently active roadmap template.</summary>
+        </member>
+        <member name="M:Country_PackageAPI.Controllers.CountryPackagesController.GetPackage(System.Guid,System.Threading.CancellationToken)">
+            <summary>Read a package with its full roadmap instance - every step and each step's document versions.</summary>
+        </member>
+        <member name="M:Country_PackageAPI.Controllers.CountryPackagesController.GetAuditTrail(System.Guid,System.Threading.CancellationToken)">
+            <summary>Read the full, append-only audit trail for a package.</summary>
+        </member>
+        <member name="M:Country_PackageAPI.Controllers.CountryPackagesController.UploadDocument(System.Guid,System.Int32,Microsoft.AspNetCore.Http.IFormFile,System.Threading.CancellationToken)">
+            <summary>Country Editor: attach a new document version to a Decision step. Rejected once the step is
+            locked (already approved) or otherwise not in a status that accepts a new version.</summary>
+        </member>
+        <member name="M:Country_PackageAPI.Controllers.CountryPackagesController.SubmitStep(System.Guid,System.Int32,CountryPackageApprovalService.Application.Dtos.SubmitStepRequest,System.Threading.CancellationToken)">
+            <summary>Country Editor: submit a step. For a Decision step this names the Reviewer who must act on it;
+            for an Information step this names the recipient and completes the step immediately - no reviewer action.</summary>
+        </member>
+        <member name="M:Country_PackageAPI.Controllers.CountryPackagesController.DecideStep(System.Guid,System.Int32,CountryPackageApprovalService.Application.Dtos.StepDecisionRequest,System.Threading.CancellationToken)">
+            <summary>Country Reviewer: approve or return a pending Decision step. Only the step's named approver may
+            act, and only while currently holding Reviewer clearance for the step's country and org level - both
+            re-checked at the moment of decision, since either can have changed since submission (docs/ARCHITECTURE.md §4.3).</summary>
+        </member>
+        <member name="T:Country_PackageAPI.Controllers.TestUsersController">
+            <summary>
+            Testing convenience only: lists every seeded fictional user and their country/role grants, so whoever is
+            exercising this API through Swagger can pick an <c>X-User-Id</c> value without digging GUIDs out of
+            README.md by hand. There is no equivalent "list every user" operation in the Azure target production API
+            (docs/ARCHITECTURE.md §6.3) - this endpoint exists only because the take-home substitutes a request header
+            for real Entra ID authentication, which otherwise gives every caller their own identity for free.
+            </summary>
+        </member>
+        <member name="T:Country_PackageAPI.Controllers.TestUserDto">
+            <summary>Testing-only projection of a seeded user - see <see cref="T:Country_PackageAPI.Controllers.TestUsersController"/>.</summary>
+        </member>
+        <member name="M:Country_PackageAPI.Controllers.TestUserDto.#ctor(System.Guid,System.String,System.String,System.Collections.Generic.IReadOnlyList{Country_PackageAPI.Controllers.TestUserRoleDto})">
+            <summary>Testing-only projection of a seeded user - see <see cref="T:Country_PackageAPI.Controllers.TestUsersController"/>.</summary>
+        </member>
+        <member name="T:Country_PackageAPI.Controllers.TestUserRoleDto">
+            <summary>One country/role/org-level grant held by a seeded test user.</summary>
+        </member>
+        <member name="M:Country_PackageAPI.Controllers.TestUserRoleDto.#ctor(System.String,System.String,System.String)">
+            <summary>One country/role/org-level grant held by a seeded test user.</summary>
+        </member>
+        <member name="T:Country_PackageAPI.Middleware.ExceptionHandlingMiddleware">
+            <summary>
+            The single place that translates a thrown <see cref="T:CountryPackageApprovalService.Domain.Exceptions.DomainException"/> into an HTTP response, so
+            controllers stay free of try/catch and status-code bookkeeping. Every response is a standard
+            <see cref="T:Microsoft.AspNetCore.Mvc.ProblemDetails"/> body (RFC 9457) carrying the request's trace id for correlation with logs -
+            see docs/ARCHITECTURE.md §7 "Observability". Unrecognized exceptions are logged with full detail but
+            returned to the caller as a generic 500 with no internal detail, since a stack trace or exception message
+            can leak information about operational data or infrastructure the caller should never see.
+            </summary>
+        </member>
+        <member name="T:Country_PackageAPI.Swagger.IdempotencyKeyOperationFilter">
+            <summary>Adds the optional <c>Idempotency-Key</c> header to every action decorated with
+            <see cref="T:Country_PackageAPI.Swagger.IdempotentActionAttribute"/> (the two step-transition endpoints), so testers see it documented
+            in Swagger UI instead of finding it only in README.md - see docs/ARCHITECTURE.md §3.3.</summary>
+        </member>
+        <member name="T:Country_PackageAPI.Swagger.IdempotentActionAttribute">
+            <summary>Marks a controller action that accepts an optional <c>Idempotency-Key</c> header, so
+            <see cref="T:Country_PackageAPI.Swagger.IdempotencyKeyOperationFilter"/> can document that header in Swagger without hardcoding route
+            names or guessing from HTTP verbs.</summary>
+        </member>
+        <member name="T:Program">
+            <summary>Partial Program class so WebApplicationFactory&lt;Program&gt; can bootstrap this app in integration tests.</summary>
+        </member>
+    </members>
+</doc>

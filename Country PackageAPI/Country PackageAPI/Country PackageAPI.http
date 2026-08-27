@@ -1,0 +1,161 @@
+@Country_PackageAPI_HostAddress = http://localhost:5290
+
+### Seeded test users (also available at runtime via the request below) -----------------------------------
+### RUR Editor (Both levels)     : 11111111-0000-0000-0000-000000000001  Ana Petrova
+### RUR Reviewer (Country only)  : 11111111-0000-0000-0000-000000000002  Marcus Ionescu
+### RUR Reviewer (Regional only) : 11111111-0000-0000-0000-000000000003  Elena Kova
+### SOL Editor (Both levels)     : 11111111-0000-0000-0000-000000000004  Noah Bergman
+### SOL Reviewer (Both levels)   : 11111111-0000-0000-0000-000000000005  Priya Shah
+### No role grants at all        : 11111111-0000-0000-0000-000000000006  Diego Reyes
+
+@editorRuritania = 11111111-0000-0000-0000-000000000001
+@reviewerRuritaniaCountry = 11111111-0000-0000-0000-000000000002
+@reviewerRuritaniaRegional = 11111111-0000-0000-0000-000000000003
+
+### 0. List seeded test users (no auth required - this endpoint only exists for this exercise)
+GET {{Country_PackageAPI_HostAddress}}/api/v1/test-users
+Accept: application/json
+
+### 1. Create a Country Package roadmap for Ruritania (as the RUR Editor)
+# @name createPackage
+POST {{Country_PackageAPI_HostAddress}}/api/v1/country-packages
+Content-Type: application/json
+X-User-Id: {{editorRuritania}}
+
+{
+  "countryCode": "RUR",
+  "title": "FY26 Country Package"
+}
+
+### 2. Read the package back (any authenticated seeded user)
+@packageId = {{createPackage.response.body.id}}
+GET {{Country_PackageAPI_HostAddress}}/api/v1/country-packages/{{packageId}}
+X-User-Id: {{editorRuritania}}
+
+### 3. Upload the roadmap document for step 1 (Decision / Country)
+# multipart boundary is handled by your REST client; if testing manually, use Swagger UI instead - it
+# generates the multipart body for you. This request is illustrative of the shape.
+POST {{Country_PackageAPI_HostAddress}}/api/v1/country-packages/{{packageId}}/steps/1/document
+X-User-Id: {{editorRuritania}}
+Content-Type: multipart/form-data; boundary=----boundary
+
+------boundary
+Content-Disposition: form-data; name="file"; filename="roadmap-v1.pdf"
+Content-Type: application/pdf
+
+< ./sample-files/roadmap-v1.pdf
+------boundary--
+
+### 4. Submit step 1, naming the Country-level Reviewer. Idempotency-Key makes a retry of this exact
+### request safe - replay it and you'll get back the same result instead of a 409.
+POST {{Country_PackageAPI_HostAddress}}/api/v1/country-packages/{{packageId}}/steps/1/submit
+Content-Type: application/json
+X-User-Id: {{editorRuritania}}
+Idempotency-Key: submit-step-1-{{packageId}}
+
+{
+  "approverOrRecipientUserId": "{{reviewerRuritaniaCountry}}"
+}
+
+### 5. Reviewer approves step 1 (as the named Country-level Reviewer)
+POST {{Country_PackageAPI_HostAddress}}/api/v1/country-packages/{{packageId}}/steps/1/decision
+Content-Type: application/json
+X-User-Id: {{reviewerRuritaniaCountry}}
+Idempotency-Key: decide-step-1-{{packageId}}
+
+{
+  "decision": "Approve",
+  "comment": "Looks good - approved at country level."
+}
+
+### 5b. ...or, instead of approving, return it for revision (comment is required)
+# POST {{Country_PackageAPI_HostAddress}}/api/v1/country-packages/{{packageId}}/steps/1/decision
+# Content-Type: application/json
+# X-User-Id: {{reviewerRuritaniaCountry}}
+#
+# {
+#   "decision": "ReturnForRevision",
+#   "comment": "Please add the missing annex before resubmitting."
+# }
+
+### 6. Submit step 2 (Information / Country) - completes immediately, no reviewer action needed
+POST {{Country_PackageAPI_HostAddress}}/api/v1/country-packages/{{packageId}}/steps/2/submit
+Content-Type: application/json
+X-User-Id: {{editorRuritania}}
+
+{
+  "approverOrRecipientUserId": "{{reviewerRuritaniaCountry}}"
+}
+
+### 7. Upload the document for step 3 (Decision / Regional)
+POST {{Country_PackageAPI_HostAddress}}/api/v1/country-packages/{{packageId}}/steps/3/document
+X-User-Id: {{editorRuritania}}
+Content-Type: multipart/form-data; boundary=----boundary
+
+------boundary
+Content-Disposition: form-data; name="file"; filename="roadmap-regional-v1.pdf"
+Content-Type: application/pdf
+
+< ./sample-files/roadmap-v1.pdf
+------boundary--
+
+### 8. Submit step 3, naming the Regional-level Reviewer
+POST {{Country_PackageAPI_HostAddress}}/api/v1/country-packages/{{packageId}}/steps/3/submit
+Content-Type: application/json
+X-User-Id: {{editorRuritania}}
+
+{
+  "approverOrRecipientUserId": "{{reviewerRuritaniaRegional}}"
+}
+
+### 9. Reviewer approves step 3
+POST {{Country_PackageAPI_HostAddress}}/api/v1/country-packages/{{packageId}}/steps/3/decision
+Content-Type: application/json
+X-User-Id: {{reviewerRuritaniaRegional}}
+
+{
+  "decision": "Approve",
+  "comment": "Approved at regional level."
+}
+
+### 10. Submit step 4 (Information / Regional) - package is now Completed
+POST {{Country_PackageAPI_HostAddress}}/api/v1/country-packages/{{packageId}}/steps/4/submit
+Content-Type: application/json
+X-User-Id: {{editorRuritania}}
+
+{
+  "approverOrRecipientUserId": "{{reviewerRuritaniaRegional}}"
+}
+
+### 11. Read the completed package
+GET {{Country_PackageAPI_HostAddress}}/api/v1/country-packages/{{packageId}}
+X-User-Id: {{editorRuritania}}
+
+### 12. Read the full audit trail
+GET {{Country_PackageAPI_HostAddress}}/api/v1/country-packages/{{packageId}}/audit-log
+X-User-Id: {{editorRuritania}}
+
+### --- RBAC failure examples -------------------------------------------------------------------------------
+
+### 13. No X-User-Id header at all -> 401
+GET {{Country_PackageAPI_HostAddress}}/api/v1/country-packages/{{packageId}}
+
+### 14. A user with zero role grants cannot create a roadmap -> 403
+POST {{Country_PackageAPI_HostAddress}}/api/v1/country-packages
+Content-Type: application/json
+X-User-Id: 11111111-0000-0000-0000-000000000006
+
+{
+  "countryCode": "RUR",
+  "title": "Should be rejected"
+}
+
+### 15. The RUR Editor cannot create a roadmap for a country they don't hold Editor clearance for -> 403
+POST {{Country_PackageAPI_HostAddress}}/api/v1/country-packages
+Content-Type: application/json
+X-User-Id: {{editorRuritania}}
+
+{
+  "countryCode": "SOL",
+  "title": "Should be rejected"
+}

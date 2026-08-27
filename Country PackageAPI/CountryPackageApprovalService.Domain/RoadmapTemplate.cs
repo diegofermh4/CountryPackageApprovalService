@@ -1,9 +1,5 @@
 namespace CountryPackageApprovalService.Domain;
 
-/// <summary>
-/// The pre-defined approval process, modeled as data rather than hardcoded steps (docs/ARCHITECTURE.md §2.2)
-/// so a revision or a second package type is a data change, not a redeploy.
-/// </summary>
 public class RoadmapTemplate
 {
     public Guid Id { get; private set; }

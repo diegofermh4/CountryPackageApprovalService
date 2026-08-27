@@ -3,11 +3,7 @@ using CountryPackageApprovalService.Domain.Exceptions;
 
 namespace CountryPackageApprovalService.Domain;
 
-/// <summary>
-/// Aggregate root. A Country Package instantiates a <see cref="RoadmapTemplate"/> into an ordered list of
-/// <see cref="ApprovalStep"/>s and owns their progression. <see cref="Status"/> is deliberately derived, not
-/// stored, so it can never drift from the steps themselves (docs/ARCHITECTURE.md §2.3).
-/// </summary>
+
 public class CountryPackage
 {
     public Guid Id { get; private set; }

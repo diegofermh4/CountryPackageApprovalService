@@ -3,9 +3,7 @@ using CountryPackageApprovalService.Domain;
 
 namespace CountryPackageApprovalService.Application.Services;
 
-/// <summary>Hand-written entity-to-DTO mapping. Deliberately not AutoMapper: the mapping surface here is
-/// small and stable, and a couple of explicit static methods are easier to read, debug, and unit test than
-/// a reflection-based profile - one fewer dependency for what it buys at this scale.</summary>
+
 internal static class DtoMapper
 {
     public static DocumentVersionDto ToDto(DocumentVersion d) =>

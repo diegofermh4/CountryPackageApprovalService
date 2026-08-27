@@ -3,15 +3,7 @@ using CountryPackageApprovalService.Domain.Exceptions;
 
 namespace CountryPackageApprovalService.Domain;
 
-/// <summary>
-/// One step in a package's roadmap instance. All state-transition rules live here as behavior (not in a
-/// service that pokes at public setters) - see docs/ARCHITECTURE.md §2.3 for the state diagram this implements.
-/// Two checks are deliberately self-contained here because they only need data this aggregate already holds
-/// (status, IsLocked, AssignedApproverId): the state-guard on every transition, and "only the named approver
-/// may decide". The broader "does this user currently hold Reviewer clearance for this country + org level"
-/// check needs a cross-aggregate lookup (<see cref="User.HasClearance"/>) and so happens one layer up, in
-/// ApprovalWorkflowService, before these methods are ever called.
-/// </summary>
+
 public class ApprovalStep
 {
     public Guid Id { get; private set; }

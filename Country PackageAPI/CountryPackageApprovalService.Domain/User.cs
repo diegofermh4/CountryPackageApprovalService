@@ -1,12 +1,6 @@
 namespace CountryPackageApprovalService.Domain;
 
-/// <summary>
-/// A platform user. In the take-home, authentication is a development header that resolves directly to a
-/// seeded User's <see cref="Id"/>; in the Azure target architecture, <see cref="ExternalId"/> holds the
-/// Microsoft Entra ID object id (oid claim) and authentication is a real OIDC token (see docs/ARCHITECTURE.md §6.3).
-/// Either way, Entra ID (or the dev header) only ever establishes identity - authorization is always
-/// re-read from <see cref="UserCountryRole"/> below.
-/// </summary>
+
 public class User
 {
     public Guid Id { get; private set; }

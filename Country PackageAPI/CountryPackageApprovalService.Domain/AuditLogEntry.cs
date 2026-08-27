@@ -1,10 +1,6 @@
 namespace CountryPackageApprovalService.Domain;
 
-/// <summary>
-/// One immutable record of a state-changing action, always written in the same DB transaction as the
-/// state change it describes (see ApprovalWorkflowService). <see cref="StepId"/> is null for package-level
-/// actions (e.g. roadmap creation).
-/// </summary>
+
 public class AuditLogEntry
 {
     public Guid Id { get; private set; }
